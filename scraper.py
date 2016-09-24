@@ -45,7 +45,7 @@ def get_everything():
                     'url': project.get("url"),
                     'tagline': project.get("tagline"),
                     'members': project.get("members"),
-                    'tags': project.get('tags') if project.get('tags') else [],
+                    'tags': project.get('tags'),
                     'winner': project.get('winner'),
                     'likes': project.get('like_count'),
                     'comments': project.get('comment_count')
@@ -54,6 +54,7 @@ def get_everything():
             
         # Increment the page number
         page = page + 1
+        print(page)
     
 # Gets information about all members in
 # devpost by looking up their information
@@ -203,10 +204,10 @@ def get_winning_tagline_lengths():
 #print(get_top_tech())
 #logging.info(remove_languages(get_worst_tech()))
 #logging.info(get_num_tags_used())
-#get_everything()
+get_everything()
 #get_members_by_db_from_github()
-print("Winning team sizes: " + str(get_num_members_on_team()))
-print("Losing team sizes: " + str(get_num_members_on_team(False)))
-print("Common hackers: " + str(get_common_hackers()))
-print("Top hackers: " + str(get_top_hackers()))
-print("Tagline length of winning teams: " + str(get_winning_tagline_lengths()))
+#print("Winning team sizes: " + str(get_num_members_on_team()))
+#print("Losing team sizes: " + str(get_num_members_on_team(False)))
+#print("Common hackers: " + str(get_common_hackers()))
+#print("Top hackers: " + str(get_top_hackers()))
+#print("Tagline length of winning teams: " + str(get_winning_tagline_lengths()))
