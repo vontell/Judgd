@@ -63,8 +63,9 @@ def get_members_by_db_from_github():
     all_members = set()
     devpost_projs = db.devpost.find()
     for project in devpost_projs:
-        for member in project.get("members"):
-            all_members.add(member)
+        if project.get("members"):
+            for member in project.get("members"):
+                all_members.add(member)
     
     cycle_start = time.process_time()
     api_count = 0
