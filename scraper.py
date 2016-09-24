@@ -1,6 +1,7 @@
 from urllib.request import urlopen
 from pymongo import MongoClient
 import requests
+import operator
 
 # Some useful base constants (for URLS and such)
 project_listings = "http://devpost.com/software/search?page="
@@ -61,7 +62,7 @@ def get_top_tech():
             else:
                 tech[tag] = 1
                 
-    return tech
+    return sorted(tech.items(), key=operator.itemgetter(1))
 
 print(get_top_tech())
 #get_hackathons()
