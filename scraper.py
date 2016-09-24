@@ -50,4 +50,18 @@ def get_hackathons():
         # Increment the page number
         page = page + 1
     
-get_hackathons()
+def get_top_tech():
+    winners = db.devpost.find({"winner": True})
+    tech = {}
+    for winner in winners:
+        for tag in winner.get("tags"):
+            
+            if tag in tech:
+                tech[tag] = tech[tag] + 1
+            else:
+                tech[tag] = 1
+                
+    return tech
+
+print(get_top_tech())
+#get_hackathons()
