@@ -209,6 +209,8 @@ def get_winning_tagline_lengths():
 
 def do_some_learning():
     
+    print("Learning now :P")
+    
     # First get a list of all tags
     all_tags = []
     devpost_projs = db.devpost.find()
@@ -233,14 +235,21 @@ def do_some_learning():
             
         X.append(tag_ind)
         Y.append(1 if project.get("winner") else 0)
-        
-    print(X)
-    print(Y)
+    
+    
+    trainingX, testingX = split_list(X)
+    trainingY, testingY = split_list(Y)
     clf = svm.SVC()
-    clf.fit(X,Y)
+    clf.fit(trainingX, trainingY)
     
-    print (clf)
+    print(clf.score(testingX, testingY))
     
+    
+def split_list(a_list):
+    B = a_list[0:len(a_list)//2]
+    C = a_list[len(a_list)//2:]
+    return B, C
+
 # Machine learning stuff
 #def do_some_ml():
     #model = Sequential()
