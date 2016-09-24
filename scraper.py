@@ -6,6 +6,7 @@ import logging
 
 # Some useful base constants (for URLS and such)
 project_listings = "http://devpost.com/software/search?page="
+github_profile = "http://api.github.com/users/"
 database = "localhost:27017"
 logging.basicConfig(filename='devpost.log',level=logging.DEBUG)
 
@@ -13,10 +14,10 @@ logging.basicConfig(filename='devpost.log',level=logging.DEBUG)
 client = MongoClient(database)
 db = client.devpost
 
-# Scrapes the main hackathon listings page
-# for hackathon names.
-#   returns a list of hackathon subdomains
-def get_hackathons():
+# Scrapes devpost to scrape everything, including:
+#   project information
+#   user information (github)
+def get_everything():
     
     # Page until there is no more!
     page = 1
@@ -34,10 +35,9 @@ def get_hackathons():
             
             # project is the actual project! Do whatever
             # you want with it here!!!
-            print(str(page) + ". " + project.get("name"))
-            print(project.get("url"))
             
-            result = db.devpost.insert_one(
+            # Add the project results to the db
+            project_result = db.devpost.insert_one(
                 {
                     'name': project.get("name"),
                     'url': project.get("url"),
@@ -50,8 +50,42 @@ def get_hackathons():
                 }
             )
             
+            # For each member, add their information to the
+            # database (from github)
+            for member in project.get("members"):
+                
+                profile_url = github_profile + member
+                github_response = requests.get(profile_url)
+                github_data = github_response.json()
+                
+                if github_response.status_code != 404:
+                    github_result = db.github.insert_one(github_data)
+                    print(github_data)
+                
+            
         # Increment the page number
         page = page + 1
+    
+# Gets information about all members in
+# devpost by looking up their information
+def get_members_by_db_from_github():
+    
+    all_members = set()
+    devpost_projs = db.devpost.find({"name": "*"}, { "members": 1, "_id": 0 })
+    for project in devpost_projs:
+        print(project)
+    
+    '''
+    for member in project.get("members"):
+                
+        profile_url = github_profile + member
+        github_response = requests.get(profile_url)
+        github_data = github_response.json()
+
+        if github_response.status_code != 404:
+            github_result = db.github.insert_one(github_data)
+            print(github_data)
+    '''
     
 # Returns the most popular tags for winning
 def get_top_tags():
@@ -110,5 +144,6 @@ def get_num_tags_used():
 
 #print(get_top_tech())
 #logging.info(remove_languages(get_worst_tech()))
-logging.info(get_num_tags_used())
-#get_hackathons()
+#logging.info(get_num_tags_used())
+#get_everything()
+get_members_by_db_from_github()
