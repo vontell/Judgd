@@ -8,7 +8,7 @@ import pandas as pd
 import tempfile
 from keras.models import Sequential
 from keras.layers import Dense, Activation
-model = Sequential()
+
 
 # Some useful base constants (for URLS and such)
 project_listings = "http://devpost.com/software/search?page="
@@ -208,6 +208,7 @@ def get_winning_tagline_lengths():
 
 # Machine learning stuff
 def do_some_ml():
+    model = Sequential()
     #data_blob = db.devpost.find()
     #COLUMNS = ["tags", "winner"]
     #train_file = tempfile.NamedTemporaryFile()
@@ -221,9 +222,9 @@ def do_some_ml():
     model.add(Dense(output_dim=10))
     model.add(Activation("softmax"))
     model.compile(loss='categorical_crossentropy', optimizer='sgd', metrics=['accuracy'])
-    model.train_on_batch(X_batch, Y_batch)
-    loss_and_metrics = model.evaluate(X_test, Y_test, batch_size=32)
-    print(loss_and_metrics)
+    model.train_on_batch(numpy.asarraay(x_batch), y_batch)
+    #loss_and_metrics = model.evaluate(X_test, Y_test, batch_size=32)
+    print(x_batch)
     
 do_some_ml()
 #print(get_top_tech())
