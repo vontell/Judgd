@@ -201,13 +201,57 @@ def get_winning_tagline_lengths():
             all_tagline_lengths[len(tagline)] = 1
     return all_tagline_lengths
 
+def print_csv():
+    
+    # First get a list of all tags
+    all_tags = []
+    devpost_projs = db.devpost.find()
+    for project in devpost_projs:
+        tags = project.get("tags")
+        if tags:
+            for tag in tags:
+                if tag not in all_tags:
+                    all_tags.append(tag)
+                
+    csv = "name," + "tagline," + "url," + "winner," + "likes," + "comments," + "members,"
+    for tag in tags:
+        csv += tag + ","
+        
+    csv = csv[0:-1]
+    csv += "\n"
+    for project in devpost_projs:
+        csv += project.get("name") + ","
+        csv += project.get("tagline") + ","
+        csv += project.get("url") + ","
+        csv += project.get("winner") + ","
+        csv += project.get("likes") + ","
+        csv += project.get("comments") + ","
+        csv += len(project.get("members")) + ","
+        
+        tag_ind = [0]*len(all_tags)
+        proj_tags = project.get("tags")
+        for tag in proj_tags:
+            index = all_tags.index(tag)
+            tag_ind[index] = 1
+            
+        for ind in tag_ind:
+            csv += tag_ind[ind] + ","
+            
+        csv = csv[0:-1]
+        csv += "\n"
+        
+    logging.info(csv)
+    
+
 #print(get_top_tech())
 #logging.info(remove_languages(get_worst_tech()))
 #logging.info(get_num_tags_used())
-get_everything()
+#get_everything()
 #get_members_by_db_from_github()
 #print("Winning team sizes: " + str(get_num_members_on_team()))
 #print("Losing team sizes: " + str(get_num_members_on_team(False)))
 #print("Common hackers: " + str(get_common_hackers()))
 #print("Top hackers: " + str(get_top_hackers()))
 #print("Tagline length of winning teams: " + str(get_winning_tagline_lengths()))
+
+print_csv()
