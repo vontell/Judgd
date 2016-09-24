@@ -239,10 +239,10 @@ def do_some_learning():
     
     trainingX, testingX = split_list(X)
     trainingY, testingY = split_list(Y)
-    clf = svm.SVC()
+    clf = svm.SVC(verbose=True, cache_size=1000)
     clf.fit(trainingX, trainingY)
     
-    print("Score: " + str(clf.score(testingX, testingY)))
+    return clf.score(testingX, testingY)
     
     
 def split_list(a_list):
@@ -294,5 +294,7 @@ def get_naive_score():
 #print("Top hackers: " + str(get_top_hackers()))
 #print("Tagline length of winning teams: " + str(get_winning_tagline_lengths()))
 
-do_some_learning()
-print("Naive: " + str(get_naive_score()))
+score = do_some_learning()
+naive = get_naive_score()
+print("Score: " + str(score * 100.0) + "%")
+print("Naive: " + str(naive * 100.0) + "%")
