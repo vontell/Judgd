@@ -157,6 +157,36 @@ def get_num_members_on_team(winning=True):
                 
     return sorted(num_members.items(), key=operator.itemgetter(1))
 
+# Returns a list of hackers with the number of
+# hackathons they have attended
+def get_common_hackers():
+    all_members = {}
+    devpost_projs = db.devpost.find()
+    for project in devpost_projs:
+        if project.get("members"):
+            for member in project.get("members"):
+                if member in all_members:
+                    all_members[member] = all_members[member] + 1
+                else:
+                    all_members[member] = 1
+                    
+    return sorted(all_members.items(), key=operator.itemgetter(1))
+
+# Returns a list of hackers with the number of
+# hackathons they have won
+def get_top_hackers():
+    all_members = {}
+    devpost_projs = db.devpost.find({"winner":True})
+    for project in devpost_projs:
+        if project.get("members"):
+            for member in project.get("members"):
+                if member in all_members:
+                    all_members[member] = all_members[member] + 1
+                else:
+                    all_members[member] = 1
+                    
+    return sorted(all_members.items(), key=operator.itemgetter(1))
+
 #print(get_top_tech())
 #logging.info(remove_languages(get_worst_tech()))
 #logging.info(get_num_tags_used())
@@ -164,3 +194,5 @@ def get_num_members_on_team(winning=True):
 #get_members_by_db_from_github()
 print("Winning team sizes: " + str(get_num_members_on_team()))
 print("Losing team sizes: " + str(get_num_members_on_team(False)))
+print("Common hackers: " + str(get_common_hackers()))
+print("Top hackers: " + str(get_top_hackers()))
