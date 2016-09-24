@@ -1,5 +1,6 @@
 from urllib.request import urlopen
 from pymongo import MongoClient
+import numpy
 import requests
 import operator
 import logging
