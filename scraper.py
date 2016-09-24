@@ -12,6 +12,9 @@ import tempfile
 import tensorflow.contrib.learn as skflow
 from sklearn import svm, datasets, metrics
 
+# TF Saver so that session data will persist.
+saver = tf.train.Saver()
+
 # Some useful base constants (for URLS and such)
 project_listings = "http://devpost.com/software/search?page="
 github_profile = "http://api.github.com/users/"
@@ -248,7 +251,7 @@ def do_some_learning():
     
     classifier = skflow.TensorFlowLinearClassifier(n_classes=1)
     classifier.fit(trainingX, trainingY)
-    
+    saver.save(classifier,'restore_point') 
     return metrics.accuracy_score(trainingX, classifier.predict(trainingY))
     
     
