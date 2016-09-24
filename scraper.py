@@ -3,10 +3,12 @@ from pymongo import MongoClient
 import requests
 import operator
 import logging
+import time
 
 # Some useful base constants (for URLS and such)
 project_listings = "http://devpost.com/software/search?page="
 github_profile = "http://api.github.com/users/"
+github_auth = "?client_id=1c2962410e41e8332ac5&client_secret=90177f03119290af2a3eff4e995ef9f88e0e323a"
 database = "localhost:27017"
 logging.basicConfig(filename='devpost.log',level=logging.DEBUG)
 
@@ -50,19 +52,6 @@ def get_everything():
                 }
             )
             
-            # For each member, add their information to the
-            # database (from github)
-            for member in project.get("members"):
-                
-                profile_url = github_profile + member
-                github_response = requests.get(profile_url, headers={client_id:'1c2962410e41e8332ac5', client_secret='90177f03119290af2a3eff4e995ef9f88e0e323a'})
-                github_data = github_response.json()
-                
-                if github_response.status_code != 404:
-                    github_result = db.github.insert_one(github_data)
-                    print(github_data)
-                
-            
         # Increment the page number
         page = page + 1
     
@@ -77,14 +66,23 @@ def get_members_by_db_from_github():
         for member in project.get("members"):
             all_members.add(member)
     
-    for member in project.get("members"):
+    cycle_start = time.process_time()
+    api_count = 0
+    API_MAX = 30
+    for member in all_members:
+        
+        #if api_count >= API_MAX:
+            #time.sleep(time.process_time() - cycle_start)
+            #api_count = 0
+            #cycle_start = time.process_time()
                 
-        profile_url = github_profile + member
+        profile_url = github_profile + member + github_auth
         github_response = requests.get(profile_url)
         github_data = github_response.json()
 
         if github_response.status_code != 404:
             github_result = db.github.insert_one(github_data)
+            api_count = api_count + 1
             print(github_data)
     
 # Returns the most popular tags for winning
