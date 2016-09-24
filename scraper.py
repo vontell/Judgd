@@ -7,9 +7,9 @@ import logging
 import time
 import pandas as pd
 import tempfile
-from keras.models import Sequential
-from keras.layers import Dense, Activation
-
+#from keras.models import Sequential
+#from keras.layers import Dense, Activation
+from sklearn import svm, datasets
 
 # Some useful base constants (for URLS and such)
 project_listings = "http://devpost.com/software/search?page="
@@ -218,9 +218,9 @@ def do_some_learning():
             for tag in tags:
                 if tag not in all_tags:
                     all_tags.append(tag)
-        
-    X = []
-    Y = []
+    iris = datasets.load_iris()    
+    X = iris.data
+    Y = iris.target
     for project in devpost_projs:
         
         tag_ind = [0]*len(all_tags)
@@ -235,27 +235,27 @@ def do_some_learning():
     clf = svm.SVC()
     clf.fit(X,Y)
     
-    print clf
+    print (clf)
     
 # Machine learning stuff
-def do_some_ml():
-    model = Sequential()
+#def do_some_ml():
+    #model = Sequential()
     #data_blob = db.devpost.find()
     #COLUMNS = ["tags", "winner"]
     #train_file = tempfile.NamedTemporaryFile()
     #test_file = tempfile.NamedTemporaryFile()
     #df_train = pd.read_json(data_blob)
     #df_train["WINNING"] = df_train(["winner"].apply(lambda x : x.get("winner")))
-    x_batch = db.devpost.find()
-    y_batch = map(lambda x : x.get("winner"), x_batch)
-    model.add(Dense(output_dim=64, input_dim=100))
-    model.add(Activation("relu"))
-    model.add(Dense(output_dim=10))
-    model.add(Activation("softmax"))
-    model.compile(loss='categorical_crossentropy', optimizer='sgd', metrics=['accuracy'])
-    model.train_on_batch(numpy.asarraay(x_batch), y_batch)
+    #x_batch = db.devpost.find()
+    #y_batch = map(lambda x : x.get("winner"), x_batch)
+    #model.add(Dense(output_dim=64, input_dim=100))
+    #model.add(Activation("relu"))
+    #model.add(Dense(output_dim=10))
+    #model.add(Activation("softmax"))
+    #model.compile(loss='categorical_crossentropy', optimizer='sgd', metrics=['accuracy'])
+    #model.train_on_batch(numpy.asarraay(x_batch), y_batch)
     #loss_and_metrics = model.evaluate(X_test, Y_test, batch_size=32)
-    print(x_batch)
+    #print(x_batch)
     
 #do_some_ml()
 #print(get_top_tech())
