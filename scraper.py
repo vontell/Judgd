@@ -41,7 +41,7 @@ def get_hackathons():
                     'url': project.get("url"),
                     'tagline': project.get("tagline"),
                     'members': project.get("members"),
-                    'tags': project.get('tags'),
+                    'tags': project.get('tags') if project.get('tags') else [],
                     'winner': project.get('winner'),
                     'likes': project.get('like_count'),
                     'comments': project.get('comment_count')
