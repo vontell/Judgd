@@ -1,14 +1,14 @@
 from urllib.request import urlopen
+from pymongo import MongoClient
 import requests
-import boto3
 
 # Some useful base constants (for URLS and such)
 project_listings = "http://devpost.com/software/search?page="
-database = "https://us-west-2.console.aws.amazon.com/dynamodb/home?region=us-west-2#tables:selected=DevPost-Scraped"
+database = "localhost:27017"
 
-# The dynamodb instance
-dynamodb = boto3.resource('dynamodb', region_name='us-west-2', endpoint_url=database)
-devpost_table = dynamodb.Table('DevPost-Scraped')
+# The database instance
+client = MongoClient(database)
+db = client.devpost
 
 # Scrapes the main hackathon listings page
 # for hackathon names.
@@ -32,12 +32,21 @@ def get_hackathons():
             # project is the actual project! Do whatever
             # you want with it here!!!
             print(str(page) + ". " + project.get("name"))
-            response = devpost_table.put_item(
-                Item={
-                    'url': project.get("url")
+            print(project.get("url"))
+            
+            result = db.devpost.insert_one(
+                {
+                    'name': project.get("name"),
+                    'url': project.get("url"),
+                    'tagline': project.get("tagline"),
+                    'members': project.get("members"),
+                    'tags': project.get('tags'),
+                    'winner': project.get('winner'),
+                    'likes': project.get('like_count'),
+                    'comments': project.get('comment_count')
                 }
             )
-        
+            
         # Increment the page number
         page = page + 1
     
