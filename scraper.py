@@ -55,7 +55,7 @@ def get_everything():
             for member in project.get("members"):
                 
                 profile_url = github_profile + member
-                github_response = requests.get(profile_url)
+                github_response = requests.get(profile_url, headers={client_id:'1c2962410e41e8332ac5', client_secret='90177f03119290af2a3eff4e995ef9f88e0e323a'})
                 github_data = github_response.json()
                 
                 if github_response.status_code != 404:
