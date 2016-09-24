@@ -187,6 +187,19 @@ def get_top_hackers():
                     
     return sorted(all_members.items(), key=operator.itemgetter(1))
 
+# Get the lengths of taglines for a winning project. Do longer 
+# taglines or shorter ones help?
+def get_winning_tagline_lengths():
+    all_tagline_lengths = {}
+    devpost_projs = db.devpost.find({"winner":True})
+    for project in devpost_projs:
+        tagline = project.get("tagline")
+        if len(tagline) in all_tagline_lengths:
+            all_tagline_lengths[len(tagline)] = all_tagline_lengths[len(tagline)] + 1
+        else:
+            all_tagline_lengths[len(tagline)] = 1
+    return all_tagline_lengths
+
 #print(get_top_tech())
 #logging.info(remove_languages(get_worst_tech()))
 #logging.info(get_num_tags_used())
@@ -196,3 +209,4 @@ print("Winning team sizes: " + str(get_num_members_on_team()))
 print("Losing team sizes: " + str(get_num_members_on_team(False)))
 print("Common hackers: " + str(get_common_hackers()))
 print("Top hackers: " + str(get_top_hackers()))
+print("Tagline length of winning teams: " + str(get_winning_tagline_lengths()))
