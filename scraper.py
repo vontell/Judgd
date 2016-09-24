@@ -1,6 +1,6 @@
 from urllib.request import urlopen
 from pymongo import MongoClient
-import numpy
+import numpy as np
 import requests
 import operator
 import logging
@@ -9,11 +9,9 @@ import pandas as pd
 import tempfile
 #from keras.models import Sequential
 #from keras.layers import Dense, Activation
+import tensorflow as tf
 import tensorflow.contrib.learn as skflow
 from sklearn import svm, datasets, metrics
-
-# TF Saver so that session data will persist.
-saver = tf.train.Saver()
 
 # Some useful base constants (for URLS and such)
 project_listings = "http://devpost.com/software/search?page="
@@ -24,7 +22,7 @@ logging.basicConfig(filename='devpost.log',level=logging.DEBUG)
 
 # The database instance
 client = MongoClient(database)
-db = client.devpost
+db = client.testDB
 
 # Scrapes devpost to scrape everything, including:
 #   project information
@@ -239,18 +237,20 @@ def do_some_learning():
             
         X.append(tag_ind)
         Y.append(1 if project.get("winner") else 0)
+        list_x = np.array(X, dtype="int64")
+        list_y = np.array(Y, dtype="int64")
     
-    
-    trainingX, testingX = split_list(X)
-    trainingY, testingY = split_list(Y)
+    trainingX, testingX = split_list(list_x)
+    trainingY, testingY = split_list(list_y)
     #clf = svm.SVC(verbose=True, cache_size=1000)
     #clf.fit(trainingX, trainingY)
     
     #return clf.score(testingX, testingY)
     
-    
-    classifier = skflow.TensorFlowLinearClassifier(n_classes=1)
-    classifier.fit(trainingX, trainingY)
+    classifier = skflow.TensorFlowLinearClassifier(n_classes=2)
+    classify_save = classifier.fit(trainingX, trainingY)
+    #TF Saver so that session data will persist.
+    saver = tf.train.Saver(classify_save)
     saver.save(classifier,'restore_point') 
     return metrics.accuracy_score(trainingX, classifier.predict(trainingY))
     
