@@ -70,12 +70,13 @@ def get_everything():
 # devpost by looking up their information
 def get_members_by_db_from_github():
     
+    # Create a set of unique github users
     all_members = set()
-    devpost_projs = db.devpost.find({"name": "*"}, { "members": 1, "_id": 0 })
+    devpost_projs = db.devpost.find()
     for project in devpost_projs:
-        print(project)
+        for member in project.get("members"):
+            all_members.add(member)
     
-    '''
     for member in project.get("members"):
                 
         profile_url = github_profile + member
@@ -85,7 +86,6 @@ def get_members_by_db_from_github():
         if github_response.status_code != 404:
             github_result = db.github.insert_one(github_data)
             print(github_data)
-    '''
     
 # Returns the most popular tags for winning
 def get_top_tags():
