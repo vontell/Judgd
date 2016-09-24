@@ -217,21 +217,26 @@ def do_some_learning():
         if tags:
             for tag in tags:
                 if tag not in all_tags:
-                    all_tags.append(tag)
-    iris = datasets.load_iris()    
-    X = iris.data
-    Y = iris.target
+                    all_tags.append(tag) 
+    
+    X = []
+    Y = []
+    
+    devpost_projs = db.devpost.find()
     for project in devpost_projs:
-        
-        tag_ind = [0]*len(all_tags)
+        print("in loop")
+        tag_ind = [0] * len(all_tags)
         proj_tags = project.get("tags")
-        for tag in proj_tags:
-            index = all_tags.index(tag)
-            tag_ind[index] = 1
+        if proj_tags:
+            for tag in proj_tags:
+                index = all_tags.index(tag)
+                tag_ind[index] = 1
             
         X.append(tag_ind)
-        Y.append(project.get("winner"))
+        Y.append(1 if project.get("winner") else 0)
         
+    print(X)
+    print(Y)
     clf = svm.SVC()
     clf.fit(X,Y)
     
