@@ -9,7 +9,8 @@ import pandas as pd
 import tempfile
 #from keras.models import Sequential
 #from keras.layers import Dense, Activation
-from sklearn import svm, datasets
+import tensorflow.contrib.learn as skflow
+from sklearn import svm, datasets, metrics
 
 # Some useful base constants (for URLS and such)
 project_listings = "http://devpost.com/software/search?page="
@@ -239,10 +240,16 @@ def do_some_learning():
     
     trainingX, testingX = split_list(X)
     trainingY, testingY = split_list(Y)
-    clf = svm.SVC(verbose=True, cache_size=1000)
-    clf.fit(trainingX, trainingY)
+    #clf = svm.SVC(verbose=True, cache_size=1000)
+    #clf.fit(trainingX, trainingY)
     
-    return clf.score(testingX, testingY)
+    #return clf.score(testingX, testingY)
+    
+    
+    classifier = skflow.TensorFlowLinearClassifier(n_classes=1)
+    classifier.fit(trainingX, trainingY)
+    
+    return metrics.accuracy_score(trainingX, classifier.predict(trainingY))
     
     
 def split_list(a_list):
