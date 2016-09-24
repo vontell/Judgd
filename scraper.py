@@ -224,7 +224,6 @@ def do_some_learning():
     
     devpost_projs = db.devpost.find()
     for project in devpost_projs:
-        print("in loop")
         tag_ind = [0] * len(all_tags)
         proj_tags = project.get("tags")
         if proj_tags:
