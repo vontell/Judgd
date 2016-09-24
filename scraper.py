@@ -242,13 +242,25 @@ def do_some_learning():
     clf = svm.SVC()
     clf.fit(trainingX, trainingY)
     
-    print(clf.score(testingX, testingY))
+    print("Score: " + str(clf.score(testingX, testingY)))
     
     
 def split_list(a_list):
     B = a_list[0:len(a_list)//2]
     C = a_list[len(a_list)//2:]
     return B, C
+
+def get_naive_score():
+    
+    devpost_projs = db.devpost.find()
+    total = 0
+    lost = 0
+    for project in devpost_projs:
+        if(not project.get("winner")):
+            lost = lost + 1
+        total = total + 1
+        
+    return float(lost)/float(total)
 
 # Machine learning stuff
 #def do_some_ml():
@@ -283,3 +295,4 @@ def split_list(a_list):
 #print("Tagline length of winning teams: " + str(get_winning_tagline_lengths()))
 
 do_some_learning()
+print("Naive: " + str(get_naive_score()))
