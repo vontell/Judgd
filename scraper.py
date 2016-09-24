@@ -70,7 +70,7 @@ def get_top_tags():
 # Returns the most popular tags for winning, 
 # minus programming languages, from the given list
 def remove_languages(tag_list):
-    languages = ["javascript", "android", "java", "css", "html", "html5", "jquery", "swift", "python", "css3", "c#"]
+    languages = ["javascript", "android", "java", "css", "html", "html5", "jquery", "swift", "python", "css3", "c#", "php", "web"]
     return [tag for tag in tag_list if tag[0] not in languages]
     
 # Returns the most popular technology of 
@@ -88,6 +88,27 @@ def get_worst_tech():
                 
     return sorted(tech.items(), key=operator.itemgetter(1))
 
+# Gets the number of tags that a project uses, as a list
+# of {num_tags_in_projects: num_projects_with_that_many_tags}
+def get_num_tags_used():
+    projects = db.devpost.find()
+    num_tags = {}
+    for project in projects:
+        if project.get("tags"):
+            num = len(project.get("tags"))
+            if num in num_tags:
+                num_tags[num] = num_tags[num] + 1
+            else:
+                num_tags[num] = 1
+        else:
+            if 0 in num_tags:
+                num_tags[0] = num_tags[0] + 1
+            else:
+                num_tags[0] = 1
+                
+    return sorted(num_tags.items(), key=operator.itemgetter(1))
+
 #print(get_top_tech())
-logging.info(remove_languages(get_worst_tech()))
+#logging.info(remove_languages(get_worst_tech()))
+logging.info(get_num_tags_used())
 #get_hackathons()
