@@ -8,7 +8,7 @@ import pandas as pd
 import tempfile
 from keras.models import Sequential
 from keras.layers import Dense, Activation
-model = sequential
+model = Sequential()
 
 # Some useful base constants (for URLS and such)
 project_listings = "http://devpost.com/software/search?page="
