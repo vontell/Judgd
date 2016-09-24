@@ -1,5 +1,5 @@
 from urllib.request import urlopen
-from pymongo import MongoClient
+]from pymongo import MongoClient
 import numpy
 import requests
 import operator
@@ -20,7 +20,7 @@ logging.basicConfig(filename='devpost.log',level=logging.DEBUG)
 
 # The database instance
 client = MongoClient(database)
-db = client.testDB
+db = client.devpost
 
 # Scrapes devpost to scrape everything, including:
 #   project information
@@ -239,10 +239,10 @@ def do_some_learning():
     
     trainingX, testingX = split_list(X)
     trainingY, testingY = split_list(Y)
-    clf = svm.SVC(verbose=True, cache_size=30000)
+    clf = svm.SVC()
     clf.fit(trainingX, trainingY)
     
-    return clf.score(testingX, testingY)
+    print("Score: " + str(clf.score(testingX, testingY)))
     
     
 def split_list(a_list):
@@ -294,7 +294,5 @@ def get_naive_score():
 #print("Top hackers: " + str(get_top_hackers()))
 #print("Tagline length of winning teams: " + str(get_winning_tagline_lengths()))
 
-score = do_some_learning()
-naive = get_naive_score()
-print("Score: " + str(score * 100.0) + "%")
-print("Naive: " + str(naive * 100.0) + "%")
+do_some_learning()
+print("Naive: " + str(get_naive_score()))
