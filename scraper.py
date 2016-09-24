@@ -141,8 +141,26 @@ def get_num_tags_used():
                 
     return sorted(num_tags.items(), key=operator.itemgetter(1))
 
+# Gets the number of members that are involved in a winning/losing project, as a list
+# of {num_of_members_in_project: num_projects_with_that_many_members}. Defaults
+# to winning teams
+def get_num_members_on_team(winning=True):
+    projects = db.devpost.find({"winner": winning})
+    num_members = {}
+    for project in projects:
+        if project.get("members"):
+            num = len(project.get("members"))
+            if num in num_members:
+                num_members[num] = num_members[num] + 1
+            else:
+                num_members[num] = 1
+                
+    return sorted(num_members.items(), key=operator.itemgetter(1))
+
 #print(get_top_tech())
 #logging.info(remove_languages(get_worst_tech()))
 #logging.info(get_num_tags_used())
 #get_everything()
-get_members_by_db_from_github()
+#get_members_by_db_from_github()
+print("Winning team sizes: " + str(get_num_members_on_team()))
+print("Losing team sizes: " + str(get_num_members_on_team(False)))
