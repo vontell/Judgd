@@ -4,9 +4,10 @@ import boto3
 
 # Some useful base constants (for URLS and such)
 project_listings = "http://devpost.com/software/search?page="
+database = "https://us-west-2.console.aws.amazon.com/dynamodb/home?region=us-west-2#tables:selected=DevPost-Scraped"
 
 # The dynamodb instance
-dynamodb = boto3.resource('dynamodb', region_name='us-west-2', endpoint_url="http://localhost:8000")
+dynamodb = boto3.resource('dynamodb', region_name='us-west-2', endpoint_url=database)
 devpost_table = dynamodb.Table('DevPost-Scraped')
 
 # Scrapes the main hackathon listings page
