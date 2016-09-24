@@ -207,7 +207,7 @@ def get_winning_tagline_lengths():
             all_tagline_lengths[len(tagline)] = 1
     return all_tagline_lengths
 
-def print_csv():
+def do_some_learning():
     
     # First get a list of all tags
     all_tags = []
@@ -218,21 +218,10 @@ def print_csv():
             for tag in tags:
                 if tag not in all_tags:
                     all_tags.append(tag)
-                
-    csv = "name," + "tagline," + "url," + "winner," + "likes," + "comments," + "members,"
-    for tag in tags:
-        csv += tag + ","
         
-    csv = csv[0:-1]
-    csv += "\n"
+    X = []
+    Y = []
     for project in devpost_projs:
-        csv += project.get("name") + ","
-        csv += project.get("tagline") + ","
-        csv += project.get("url") + ","
-        csv += project.get("winner") + ","
-        csv += project.get("likes") + ","
-        csv += project.get("comments") + ","
-        csv += len(project.get("members")) + ","
         
         tag_ind = [0]*len(all_tags)
         proj_tags = project.get("tags")
@@ -240,13 +229,13 @@ def print_csv():
             index = all_tags.index(tag)
             tag_ind[index] = 1
             
-        for ind in tag_ind:
-            csv += tag_ind[ind] + ","
-            
-        csv = csv[0:-1]
-        csv += "\n"
+        X.append(tag_ind)
+        Y.append(project.get("winner"))
         
-    logging.info(csv)
+    clf = svm.SVC()
+    clf.fit(X,Y)
+    
+    print clf
     
 # Machine learning stuff
 def do_some_ml():
@@ -280,4 +269,4 @@ def do_some_ml():
 #print("Top hackers: " + str(get_top_hackers()))
 #print("Tagline length of winning teams: " + str(get_winning_tagline_lengths()))
 
-print_csv()
+do_some_learning()
