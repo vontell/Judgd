@@ -1,9 +1,13 @@
 from urllib.request import urlopen
-from bs4 import BeautifulSoup
 import requests
+import boto3
 
 # Some useful base constants (for URLS and such)
 project_listings = "http://devpost.com/software/search?page="
+
+# The dynamodb instance
+dynamodb = boto3.resource('dynamodb', region_name='us-west-2', endpoint_url="http://localhost:8000")
+devpost_table = dynamodb.Table('DevPost-Scraped')
 
 # Scrapes the main hackathon listings page
 # for hackathon names.
@@ -26,8 +30,12 @@ def get_hackathons():
             
             # project is the actual project! Do whatever
             # you want with it here!!!
-            print(project.get("name"))
-            pass
+            print(str(page) + ". " + project.get("name"))
+            response = devpost_table.put_item(
+                Item={
+                    'url': project.get("url")
+                }
+            )
         
         # Increment the page number
         page = page + 1
