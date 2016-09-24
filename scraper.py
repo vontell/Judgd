@@ -4,6 +4,11 @@ import requests
 import operator
 import logging
 import time
+import pandas as pd
+import tempfile
+from keras.models import Sequential
+from keras.layers import Dense, Activation
+model = sequential
 
 # Some useful base constants (for URLS and such)
 project_listings = "http://devpost.com/software/search?page="
@@ -201,10 +206,30 @@ def get_winning_tagline_lengths():
             all_tagline_lengths[len(tagline)] = 1
     return all_tagline_lengths
 
+# Machine learning stuff
+def do_some_ml():
+    #data_blob = db.devpost.find()
+    #COLUMNS = ["tags", "winner"]
+    #train_file = tempfile.NamedTemporaryFile()
+    #test_file = tempfile.NamedTemporaryFile()
+    #df_train = pd.read_json(data_blob)
+    #df_train["WINNING"] = df_train(["winner"].apply(lambda x : x.get("winner")))
+    x_batch = db.devpost.find()
+    y_batch = map(lambda x : x.get("winner"), x_batch)
+    model.add(Dense(output_dim=64, input_dim=100))
+    model.add(Activation("relu"))
+    model.add(Dense(output_dim=10))
+    model.add(Activation("softmax"))
+    model.compile(loss='categorical_crossentropy', optimizer='sgd', metrics=['accuracy'])
+    model.train_on_batch(X_batch, Y_batch)
+    loss_and_metrics = model.evaluate(X_test, Y_test, batch_size=32)
+    print(loss_and_metrics)
+    
+do_some_ml()
 #print(get_top_tech())
 #logging.info(remove_languages(get_worst_tech()))
 #logging.info(get_num_tags_used())
-get_everything()
+#get_everything()
 #get_members_by_db_from_github()
 #print("Winning team sizes: " + str(get_num_members_on_team()))
 #print("Losing team sizes: " + str(get_num_members_on_team(False)))
