@@ -55,12 +55,12 @@ def get_top_tech():
     winners = db.devpost.find({"winner": True})
     tech = {}
     for winner in winners:
-        for tag in winner.get("tags"):
-            
-            if tag in tech:
-                tech[tag] = tech[tag] + 1
-            else:
-                tech[tag] = 1
+        if winner.get("tags"):
+            for tag in winner.get("tags"):
+                if tag in tech:
+                    tech[tag] = tech[tag] + 1
+                else:
+                    tech[tag] = 1
                 
     return sorted(tech.items(), key=operator.itemgetter(1))
 
