@@ -495,7 +495,7 @@ def give_prediction():
     print(clf)
     result = [0] * 1
     result[0] = make_prediction(content)[0]
-    return Response(result, mimetype='text/text')
+    return json.dumps(result)
 
 
 @app.route("/stats")
