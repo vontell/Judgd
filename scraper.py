@@ -494,9 +494,7 @@ def give_naive():
 def give_prediction():
     content = request.json
     print(clf)
-    result = [0] * 1
-    result[0] = make_prediction(content)[0]
-    return Response(str(result),  mimetype='application/text')
+    return Response(str(make_prediction(content)),  mimetype='application/text')
 
 
 @app.route("/stats")
