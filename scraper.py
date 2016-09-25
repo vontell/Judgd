@@ -7,18 +7,15 @@ import logging
 import time
 import pandas as pd
 import tempfile
-<<<<<<< HEAD
 import matplotlib.pyplot as plt; plt.rcdefaults()
 import matplotlib.pyplot as plt
 #import tensorflow.contrib.learn as skflow
 #from sklearn import svm, datasets, metrics
-=======
 #from keras.models import Sequential
 #from keras.layers import Dense, Activation
 import tensorflow as tf
 import tensorflow.contrib.learn as skflow
 from sklearn import svm, datasets, metrics
->>>>>>> a8de8d9664b6a492ca93f81b8aa2424b2fcb3c20
 
 # Some useful base constants (for URLS and such)
 project_listings = "http://devpost.com/software/search?page="
@@ -265,7 +262,8 @@ def do_some_learning():
         if project.get("tagline"):
             for word in project.get("tagline").split(" "):
                 if word in all_tags:
-                    # Flip 0 to 1 in tag_ind in right position
+                    index = all_tags.index(tag)
+                    tag_ind[index] = 1
             
         X.append(tag_ind)
         Y.append(1 if project.get("winner") else 0)
@@ -279,21 +277,12 @@ def do_some_learning():
     
     #return clf.score(testingX, testingY)
     
-<<<<<<< HEAD
-    
-    #classifier = skflow.TensorFlowLinearClassifier(n_classes=1)
-    #classifier.fit(trainingX, trainingY)
-    
-    #return metrics.accuracy_score(trainingX, classifier.predict(trainingY))
-=======
     classifier = skflow.TensorFlowLinearClassifier(n_classes=2)
     classify_save = classifier.fit(trainingX, trainingY)
     #TF Saver so that session data will persist.
     saver = tf.train.Saver(classify_save)
     saver.save(classifier,'restore_point') 
-    return metrics.accuracy_score(trainingX, classifier.predict(trainingY))
->>>>>>> a8de8d9664b6a492ca93f81b8aa2424b2fcb3c20
-    
+    return metrics.accuracy_score(trainingX, classifier.predict(trainingY))    
     
 def split_list(a_list):
     B = a_list[0:len(a_list)//2]
@@ -368,7 +357,7 @@ def plot_num_players_on_winning():
 #print(get_top_tags())
 #logging.info(remove_languages(get_worst_tech()))
 #logging.info(get_num_tags_used())
-#get_everything()
+get_everything()
 #get_members_by_db_from_github()
 #print("Winning team sizes: " + str(get_num_members_on_team()))
 #print("Losing team sizes: " + str(get_num_members_on_team(False)))
@@ -376,17 +365,14 @@ def plot_num_players_on_winning():
 #print("Top hackers: " + str(get_top_hackers()))
 #print("Tagline length of winning teams: " + str(get_winning_tagline_lengths()))
 
-<<<<<<< HEAD
 #score = do_some_learning()
 #naive = get_naive_score()
 #print("Score: " + str(score * 100.0) + "%")
 #print("Naive: " + str(naive * 100.0) + "%")
 #plot_popular_tags()
 #plot_worst_tags()
-plot_num_players_on_winning()
-=======
+#plot_num_players_on_winning()
 score = do_some_learning()
 naive = get_naive_score()
 print("Score: " + str(score * 100.0) + "%")
 print("Naive: " + str(naive * 100.0) + "%")
->>>>>>> a8de8d9664b6a492ca93f81b8aa2424b2fcb3c20
