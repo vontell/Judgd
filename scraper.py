@@ -327,7 +327,6 @@ def do_some_learning():
     clf = svm.SVC(verbose=True, cache_size=30000, probability=True)
     clf.fit(trainingX, trainingY)
 
-    # Make a prediction!
     pred_project = {
         "tags": ["gupshup", "atlantic.net", "outlook", "myscript"],
         "members": ["vontell", "cooperpellaton", "amissingmember", "theallstar"],
@@ -369,6 +368,44 @@ def do_some_learning():
     #saver = tf.train.Saver(classify_save)
     # saver.save(classifier,'restore_point')
     # return metrics.accuracy_score(trainingX, classifier.predict(trainingY))
+
+
+def make_prediction(blob):
+    if blob:
+        pred_project = blob
+    else:
+        pred_project = {
+            "tags": ["gupshup", "atlantic.net", "outlook", "myscript"],
+            "members": ["vontell", "cooperpellaton", "amissingmember", "theallstar"],
+            "tagline": "This project is a project is a project is a project is a project is a project is a project is a project is a project!",
+        }
+
+    all_tags = get_all_tags()
+    # ASSEMBLE OUR TEST
+    pred_ind = [0] * len(all_tags)
+    pred_proj_tags = pred_project["tags"]
+    if pred_proj_tags:
+        for pred_tag in pred_proj_tags:
+            if pred_tag in all_tags:
+                print("we in")
+                index = all_tags.index(pred_tag)
+                pred_ind[index] = 1
+
+    if pred_project["tagline"]:
+        tagline_words_count = len(pred_project["tagline"])
+        pred_ind.append(tagline_words_count)
+    else:
+        tagline_words_count = 0
+        pred_ind.append(tagline_words_count)
+
+    if(pred_project["members"]):
+        num_mem = len(pred_project["members"])
+        pred_ind.append(num_mem)
+    else:
+        pred_ind.append(0)
+
+    print(clf.predict_proba(pred_ind))
+    return clf.predict_proba(pred_ind)
 
 
 def split_list(a_list):
@@ -475,6 +512,21 @@ except FileNotFoundError:
 def give_em_something():
     print("Recieved tags request.")
     return (jsonify(get_all_tags()))
+
+
+@app.route("/naive")
+def give_naive():
+    return (jsonify(get_naive_score()))
+
+
+@app.route("/naive/<json: blob>")
+def give_prediction(blob):
+    return jsonify(make_prediction(blob))
+
+
+@app.route("/stats")
+def get_stas():
+    return jsonify(db.devpost.stats().count)
 
 
 @app.route("/")
