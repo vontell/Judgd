@@ -24,7 +24,7 @@ Clone this repository and then begin by running `pip install -r requirements.txt
 Begin by doing the following:
 - Open your terminal and open `mongo`.
 - Enter `use devpost`
-- Enter `db.createCollection("devpost")
+- Enter `db.createCollection("devpost")`
 - Now exit Mongo shell by using Ctrl-c.
 - Open up scraper.py and remove the comment enclosing `get_everything()`.
 - Execute `python scraper.py`. Be sure that you are running at least Python version 3.4 or greater.
@@ -35,6 +35,7 @@ We're now going to do some ML.
 
 ## Deriving Value from our Data
 Now go back into `scraper.py` and toggle on the following.
+
 1. score = do_some_learning()
 2. naive = get_naive_score()
 3. logging.info("Score: " + str(score*100.0)+ "%")
