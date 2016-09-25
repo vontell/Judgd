@@ -452,9 +452,11 @@ def get_top_not_worst():
 # RUNNERS, RUNTIME AND ROUTES BELOW
 # ----------------------------------
 clf = None
-
-with open('clf.pickle', 'rb') as f:  # Python 3: open(..., 'rb')
-    clf = pickle.load(f)
+try:
+    with open('clf.pickle', 'rb') as f:  # Python 3: open(..., 'rb')
+        clf = pickle.load(f)
+except FileNotFoundError:
+    pass
 
 @app.route("/")
 def return_info():
