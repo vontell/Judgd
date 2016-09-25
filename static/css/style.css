@@ -1,0 +1,58 @@
+.profile-img {
+	width: 200px;
+	height: 200px;
+	border-radius: 100px;
+	-webkit-border-radius: 100px;
+	-moz-border-radius: 100px;
+    margin: auto auto;
+    border-style: solid;
+    border-color: #ffffff;
+    border-radius: 100px;
+    border-width: 2px;
+}
+
+.intro-text {
+    margin-top: 10px;
+}
+
+.name {
+    font-size: 64px;
+    font-weight: 700;
+}
+
+.header-button {
+    
+}
+
+.chip {
+    display: inline-block;
+    height: 32px;
+    font-size: 13px;
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.6);
+    line-height: 32px;
+    padding: 0 12px;
+    border-radius: 16px;
+    background-color: #e4e4e4;
+    margin-right:8px;
+    text-decoration: none;
+    margin: 8px;
+}
+
+.chip-large {
+    width: 100%;
+    max-width: 128px;
+    margin-left: 0px;
+}
+
+.chip:hover {
+    background-color: #d4cfcf;
+}
+
+.chip-active {
+    background-color: #bab5b5;
+}
+
+.clicked {
+    background-color: #d4cfcf;
+}

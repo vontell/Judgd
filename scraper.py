@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, url_for, redirect
 app = Flask(__name__)
 from urllib.request import urlopen
 from pymongo import MongoClient
@@ -420,9 +420,10 @@ def get_top_not_worst():
 
 @app.route("/")
 def return_info():
-    return (frontend/index.html)
+    return redirect(url_for('static', filename='index.html'))
 
 if __name__ == "__main__":
+    
     app.run()
 
     #do_some_ml()
@@ -445,10 +446,10 @@ if __name__ == "__main__":
     #plot_worst_tags()
     #plot_num_players_on_winning()
 
-    score = do_some_learning()
-    naive = get_naive_score()
-    print("Score: " + str(score * 100.0) + "%")
-    print("Naive: " + str(naive * 100.0) + "%")
+    #score = do_some_learning()
+    #naive = get_naive_score()
+    #print("Score: " + str(score * 100.0) + "%")
+    #print("Naive: " + str(naive * 100.0) + "%")
     #logging.info(get_top_not_worst())
     #logging.info(get_num_tags_used())
     #logging.info("True: "+ str(get_num_members_on_team(True)))
