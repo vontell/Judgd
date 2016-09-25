@@ -218,9 +218,8 @@ ul.input-list li {
         <br /><br />
         <div class="indent-left row">
                 <div class="col-md-6">
-                    <h3>More team members = better chance of winning</h3>
-                    <p>We found that as the number of team members increases, the percent chance that their project wins
-                    increases. No surprise here!</p>
+                    <h3>Naive solution = predict all losses</h3>
+                    <p>After crunching the data, we found that about 91% of hackathon submissions do not win a prize. The best way to predict whether a project would win or lose with the highest accuracy without any data would therefore be to simply say the project lost! We can do better though.</p>
                 </div>
                 <div class="col-md-6">
                     <canvas class="chart chart-bar" chart-data="newdata" chart-labels="newlabels"></canvas>
@@ -938,6 +937,8 @@ ul.input-list li {
                 </div>
                 
                 <button ng-click="submit()" type="button" class="btn btn-primary" style="font-size: 24px; margin-left: 16px; margin-top:8px">Get Win Prediction</button>
+                
+                <h3 ng-bind="result" style="margin-left: 16px; margin-top: 16px"></h3>
                 
 			</div>
 		</div>
@@ -1681,6 +1682,12 @@ var _wpcf7 = {"loaderUrl":"https:\/\/tanvas.co\/wp-content\/plugins\/contact-for
                 $scope.newlabels = ["1 dev","2 devs","3 devs","4 devs"];
                 $scope.newdata = [6.9,11.5,14,19];
                 
+                $http.get("/naive").then(function(res) {
+                    console.log(res.data);
+                }, function(err) {
+                    console.log(err);
+                })
+                
                 $http.get("/tags").then(function(res) {
                     
                     $scope.tags = res.data;
@@ -1701,7 +1708,7 @@ var _wpcf7 = {"loaderUrl":"https:\/\/tanvas.co\/wp-content\/plugins\/contact-for
                     
                     console.log(prediction);
                     
-                    $http.post("/prediction", prediction).then(function(res) {
+                    $http.post("/prediction/", prediction).then(function(res) {
                         $scope.result = "Your project has " + res.data;
                     }, function(err) {
                         $scope.result = "There was an error with the prediction :(";
