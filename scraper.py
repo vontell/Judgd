@@ -207,11 +207,12 @@ def get_winning_tagline_lengths():
     devpost_projs = db.devpost.find({"winner":True})
     for project in devpost_projs:
         tagline = project.get("tagline")
-        if len(tagline) in all_tagline_lengths:
-            all_tagline_lengths[len(tagline)] = all_tagline_lengths[len(tagline)] + 1
-        else:
-            all_tagline_lengths[len(tagline)] = 1
-    return all_tagline_lengths
+        if tagline: 
+            if len(tagline) in all_tagline_lengths:
+                all_tagline_lengths[len(tagline)] = all_tagline_lengths[len(tagline)] + 1
+            else:
+                all_tagline_lengths[len(tagline)] = 1
+    return sorted(all_tagline_lengths.items(), key=operator.itemgetter(1))
 
 def do_some_learning():
     
@@ -412,5 +413,8 @@ def get_top_not_worst():
 #print("Score: " + str(score * 100.0) + "%")
 #print("Naive: " + str(naive * 100.0) + "%")
 
-print(get_top_not_worst())
-print(get_num_tags_used())
+logging.info(get_top_not_worst())
+logging.info(get_num_tags_used())
+logging.info("True: "+ str(get_num_members_on_team(True)))
+logging.info("False: " + str(get_num_members_on_team(False)))
+logging.info("Tagline length: " + str(get_winning_tagline_lengths()))
