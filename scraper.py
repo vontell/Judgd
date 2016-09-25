@@ -259,6 +259,12 @@ def do_some_learning():
         else:
             tag_ind.append(0)
             
+        if(project.get("members")):
+            num_mem = len(project.get("members"))
+            tag_ind.append(num_men)
+        else:
+            tag_ind.append(0)
+            
         if project.get("tagline"):
             for word in project.get("tagline").split(" "):
                 if word in all_tags:
