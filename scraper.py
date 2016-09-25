@@ -521,7 +521,7 @@ def give_naive():
 
 @app.route('/prediction', methods=['GET', 'POST'])
 def give_prediction():
-    content = request.json()
+    content = request.json
     return jsonify(make_prediction(content))
 
 
