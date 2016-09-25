@@ -503,7 +503,7 @@ def get_top_not_worst():
 clf = None
 try:
     with open('clf.pickle', 'rb') as f:  # Python 3: open(..., 'rb')
-        clf = pickle.load(f)
+        clf = pickle.load(f)[0]
 except FileNotFoundError:
     pass
 
