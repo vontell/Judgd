@@ -493,8 +493,8 @@ def give_naive():
 def give_prediction():
     content = request.json
     print(clf)
-    result = {}
-    result["loss"] = make_prediction(content)[0]
+    result = [0] * 1
+    result[0] = make_prediction(content)[0]
     return result
 
 
