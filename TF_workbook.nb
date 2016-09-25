@@ -1,0 +1,482 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 11.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     13849,        474]
+NotebookOptionsPosition[     13409,        453]
+NotebookOutlinePosition[     13762,        469]
+CellTagsIndexPosition[     13719,        466]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"'", "natural"}], "-", "language", "-", 
+      RowBox[{"processing", "'"}]}], ",", "15"}], ")"}], ",", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"'", "google"}], "-", 
+      RowBox[{"cardboard", "'"}]}], ",", "15"}], ")"}], ",", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"'", 
+      RowBox[{"jade", "'"}]}], ",", "15"}], ")"}], ",", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"'", 
+      RowBox[{"hardware", "'"}]}], ",", "15"}], ")"}], ",", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"'", "google"}], "-", 
+      RowBox[{"places", "'"}]}], ",", "15"}], ")"}], ",", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"'", 
+      RowBox[{"alchemyapi", "'"}]}], ",", "15"}], ")"}], ",", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"'", 
+      RowBox[{"domain", ".", 
+       RowBox[{"com", "'"}]}]}], ",", "15"}], ")"}], ",", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"'", 
+      RowBox[{"php5", "'"}]}], ",", "16"}], ")"}], ",", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"'", 
+      RowBox[{"postgresql", "'"}]}], ",", "16"}], ")"}], ",", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"'", 
+      RowBox[{"bluetooth", "'"}]}], ",", "16"}], ")"}], ",", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"'", 
+      RowBox[{"docker", "'"}]}], ",", "16"}], ")"}], ",", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"'", 
+      RowBox[{"esri", "'"}]}], ",", "17"}], ")"}], ",", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"'", 
+      RowBox[{"numpy", "'"}]}], ",", "17"}], ")"}], ",", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"'", 
+      RowBox[{"sqlite", "'"}]}], ",", "17"}], ")"}], ",", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"'", 
+      RowBox[{"kinect", "'"}]}], ",", "17"}], ")"}], ",", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"'", 
+      RowBox[{"sql", "'"}]}], ",", "17"}], ")"}], ",", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"'", 
+      RowBox[{"linode", "'"}]}], ",", "18"}], ")"}], ",", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"'", 
+      RowBox[{"chrome", "'"}]}], ",", "19"}], ")"}], ",", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"'", 
+      RowBox[{"api", "'"}]}], ",", "19"}], ")"}], ",", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"'", 
+      RowBox[{"git", "'"}]}], ",", "19"}], ")"}], ",", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"'", 
+      RowBox[{"sketch", "'"}]}], ",", "20"}], ")"}], ",", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"'", "intel"}], "-", 
+      RowBox[{"edison", "'"}]}], ",", "21"}], ")"}], ",", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"'", "wolfram"}], "-", 
+      RowBox[{"technologies", "'"}]}], ",", "21"}], ")"}], ",", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"'", 
+      RowBox[{"linux", "'"}]}], ",", "22"}], ")"}], ",", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"'", "visual"}], "-", 
+      RowBox[{"studio", "'"}]}], ",", "22"}], ")"}], ",", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"'", 
+      RowBox[{"meteor", ".", 
+       RowBox[{"js", "'"}]}]}], ",", "22"}], ")"}], ",", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"'", 
+      RowBox[{"ruby", "'"}]}], ",", "23"}], ")"}], ",", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"'", 
+      RowBox[{"ajax", "'"}]}], ",", "23"}], ")"}], ",", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"'", 
+      RowBox[{"apache", "'"}]}], ",", "25"}], ")"}], ",", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"'", 
+      RowBox[{"oculus", "'"}]}], ",", "26"}], ")"}], ",", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"'", "amazon"}], "-", 
+      RowBox[{"alexa", "'"}]}], ",", "27"}], ")"}], ",", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"'", 
+      RowBox[{"heroku", "'"}]}], ",", "28"}], ")"}], ",", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"'", "adobe"}], "-", 
+      RowBox[{"illustrator", "'"}]}], ",", "29"}], ")"}], ",", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"'", 
+      RowBox[{"love", "'"}]}], ",", "29"}], ")"}], ",", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"'", "machine"}], "-", 
+      RowBox[{"learning", "'"}]}], ",", "30"}], ")"}], ",", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"'", 
+      RowBox[{"twitter", "'"}]}], ",", "30"}], ")"}], ",", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"'", 
+      RowBox[{"myo", "'"}]}], ",", "30"}], ")"}], ",", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"'", "leap"}], "-", 
+      RowBox[{"motion", "'"}]}], ",", "31"}], ")"}], ",", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"'", 
+      RowBox[{"xml", "'"}]}], ",", "32"}], ")"}], ",", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"'", 
+      RowBox[{"django", "'"}]}], ",", "34"}], ")"}], ",", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"'", 
+      RowBox[{"clarifai", "'"}]}], ",", "35"}], ")"}], ",", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"'", 
+      RowBox[{"d3", ".", 
+       RowBox[{"js", "'"}]}]}], ",", "35"}], ")"}], ",", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"'", "ruby"}], "-", "on", "-", 
+      RowBox[{"rails", "'"}]}], ",", "36"}], ")"}], ",", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"'", 
+      RowBox[{"photoshop", "'"}]}], ",", "37"}], ")"}], ",", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"'", 
+      RowBox[{"opencv", "'"}]}], ",", "37"}], ")"}], ",", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"'", 
+      RowBox[{"ionic", "'"}]}], ",", "38"}], ")"}], ",", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"'", 
+      RowBox[{"pebble", "'"}]}], ",", "38"}], ")"}], ",", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"'", 
+      RowBox[{"parse", "'"}]}], ",", "40"}], ")"}], ",", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"'", 
+      RowBox[{"github", "'"}]}], ",", "40"}], ")"}], ",", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"'", 
+      RowBox[{"socket", ".", 
+       RowBox[{"io", "'"}]}]}], ",", "41"}], ")"}], ",", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"'", "ibm"}], "-", 
+      RowBox[{"watson", "'"}]}], ",", "43"}], ")"}], ",", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"'", 
+      RowBox[{"react", "'"}]}], ",", "47"}], ")"}], ",", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"'", 
+      RowBox[{"bluemix", "'"}]}], ",", "48"}], ")"}], ",", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"'", 
+      RowBox[{"xcode", "'"}]}], ",", "49"}], ")"}], ",", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"'", "iphone"}], "-", 
+      RowBox[{"sdk", "'"}]}], ",", "50"}], ")"}], ",", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"'", 
+      RowBox[{
+       RowBox[{"c", "++"}], "'"}]}], ",", "54"}], ")"}], ",", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"'", 
+      RowBox[{"c", "'"}]}], ",", "56"}], ")"}], ",", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"'", "raspberry"}], "-", 
+      RowBox[{"pi", "'"}]}], ",", "57"}], ")"}], ",", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"'", 
+      RowBox[{"mysql", "'"}]}], ",", "61"}], ")"}], ",", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"'", "objective"}], "-", 
+      RowBox[{"c", "'"}]}], ",", "65"}], ")"}], ",", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"'", "google"}], "-", 
+      RowBox[{"maps", "'"}]}], ",", "67"}], ")"}], ",", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"'", 
+      RowBox[{"firebase", "'"}]}], ",", "71"}], ")"}], ",", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"'", 
+      RowBox[{"json", "'"}]}], ",", "72"}], ")"}], ",", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"'", 
+      RowBox[{"azure", "'"}]}], ",", "74"}], ")"}], ",", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"'", 
+      RowBox[{"twilio", "'"}]}], ",", "88"}], ")"}], ",", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"'", 
+      RowBox[{"express", ".", 
+       RowBox[{"js", "'"}]}]}], ",", "90"}], ")"}], ",", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"'", "c", 
+      RowBox[{"#", "'"}]}], ",", "98"}], ")"}], ",", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"'", "amazon"}], "-", "web", "-", 
+      RowBox[{"services", "'"}]}], ",", "99"}], ")"}], ",", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"'", 
+      RowBox[{"flask", "'"}]}], ",", "104"}], ")"}], ",", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"'", 
+      RowBox[{"mongodb", "'"}]}], ",", "106"}], ")"}], ",", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"'", 
+      RowBox[{"ios", "'"}]}], ",", "107"}], ")"}], ",", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"'", 
+      RowBox[{"unity", "'"}]}], ",", "107"}], ")"}], ",", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"'", "android"}], "-", 
+      RowBox[{"studio", "'"}]}], ",", "114"}], ")"}], ",", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"'", 
+      RowBox[{"php", "'"}]}], ",", "116"}], ")"}], ",", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"'", 
+      RowBox[{"angular", ".", 
+       RowBox[{"js", "'"}]}]}], ",", "118"}], ")"}], ",", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"'", 
+      RowBox[{"bootstrap", "'"}]}], ",", "126"}], ")"}], ",", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"'", 
+      RowBox[{"swift", "'"}]}], ",", "126"}], ")"}], ",", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"'", 
+      RowBox[{"css3", "'"}]}], ",", "137"}], ")"}], ",", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"'", 
+      RowBox[{"arduino", "'"}]}], ",", "139"}], ")"}], ",", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"'", 
+      RowBox[{"jquery", "'"}]}], ",", "177"}], ")"}], ",", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"'", 
+      RowBox[{"android", "'"}]}], ",", "201"}], ")"}], ",", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"'", 
+      RowBox[{"html5", "'"}]}], ",", "219"}], ")"}], ",", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"'", 
+      RowBox[{"java", "'"}]}], ",", "251"}], ")"}], ",", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"'", 
+      RowBox[{"html", "'"}]}], ",", "269"}], ")"}], ",", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"'", 
+      RowBox[{"css", "'"}]}], ",", "278"}], ")"}], ",", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"'", 
+      RowBox[{"node", ".", 
+       RowBox[{"js", "'"}]}]}], ",", "337"}], ")"}], ",", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"'", 
+      RowBox[{"python", "'"}]}], ",", "397"}], ")"}], ",", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"'", 
+      RowBox[{"javascript", "'"}]}], ",", "622"}], ")"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.6837796448755093`*^9, 3.683779668915201*^9}},
+ EmphasizeSyntaxErrors->True],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Syntax","bktmop",
+   "\"Expression \\\"\\!\\(\\*RowBox[{RowBox[{RowBox[{\\\"(\\\", \
+RowBox[{RowBox[{RowBox[{\\\"'\\\", \\\"natural\\\"}], \\\"-\\\", \\\"language\
+\\\", \\\"-\\\", RowBox[{\\\"processing\\\", \\\"'\\\"}]}], \\\",\\\", \\\"15\
+\\\"}], \\\")\\\"}], \\\",\\\", RowBox[{\\\"(\\\", RowBox[{RowBox[{RowBox[{\\\
+\"'\\\", \\\"google\\\"}], \\\"-\\\", RowBox[{\\\"cardboard\\\", \
+\\\"'\\\"}]}], \\\",\\\", \\\"15\\\"}], \\\")\\\"}], \\\",\\\", RowBox[{\\\"(\
+\\\", RowBox[{RowBox[{\\\"'\\\", RowBox[{\\\"jade\\\", \\\"'\\\"}]}], \\\",\\\
+\", \\\"15\\\"}], \\\")\\\"}], \\\",\\\", RowBox[{\\\"(\\\", RowBox[{RowBox[{\
+\\\"'\\\", RowBox[{\\\"hardware\\\", \\\"'\\\"}]}], \\\",\\\", \\\"15\\\"}], \
+\\\")\\\"}], \\\",\\\", RowBox[{\\\"(\\\", RowBox[{RowBox[{RowBox[{\\\"'\\\", \
+\\\"google\\\"}], \\\"-\\\", RowBox[{\\\"places\\\", \\\"'\\\"}]}], \
+\\\",\\\", \\\"15\\\"}], \\\")\\\"}], \\\",\\\", \
+RowBox[{\\\"\[LeftSkeleton]\\\", \\\"78\\\", \\\"\[RightSkeleton]\\\"}], \
+\\\",\\\", RowBox[{\\\"(\\\", RowBox[{RowBox[{\\\"'\\\", \
+RowBox[{\\\"html\\\", \\\"'\\\"}]}], \\\",\\\", \\\"269\\\"}], \\\")\\\"}], \
+\\\",\\\", RowBox[{\\\"(\\\", RowBox[{RowBox[{\\\"'\\\", RowBox[{\\\"css\\\", \
+\\\"'\\\"}]}], \\\",\\\", \\\"278\\\"}], \\\")\\\"}], \\\",\\\", \
+RowBox[{\\\"(\\\", RowBox[{RowBox[{\\\"'\\\", RowBox[{\\\"node\\\", \
+\\\".\\\", RowBox[{\\\"js\\\", \\\"'\\\"}]}]}], \\\",\\\", \\\"337\\\"}], \
+\\\")\\\"}], \\\",\\\", RowBox[{\\\"(\\\", RowBox[{RowBox[{\\\"'\\\", \
+RowBox[{\\\"python\\\", \\\"'\\\"}]}], \\\",\\\", \\\"397\\\"}], \\\")\\\"}], \
+\\\",\\\", RowBox[{\\\"(\\\", RowBox[{RowBox[{\\\"'\\\", \
+RowBox[{\\\"javascript\\\", \\\"'\\\"}]}], \\\",\\\", \\\"622\\\"}], \
+\\\")\\\"}]}], \\\"]\\\"}]\\)\\\" has no opening \
+\\\"\\!\\(\\*RowBox[{\\\"\\\\\\\"[\\\\\\\"\\\"}]\\)\\\"\\!\\(\\*RowBox[{\\\"\\\
+\\\\\"\\\\\\\"\\\"}]\\).\"",2,1,2,28132071062360007078,"Local"},
+  "MessageTemplate"]], "Message", "MSG",
+ CellChangeTimes->{3.6837797021185827`*^9}]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"plot", 
+   RowBox[{"(", 
+    RowBox[{"In", "[", "1", "]"}], ")"}]}], "\[IndentingNewLine]"}]], "Input",\
+
+ CellChangeTimes->{{3.6837797187152357`*^9, 3.6837797373191643`*^9}}],
+
+Cell[BoxData["plot"], "Output",
+ CellChangeTimes->{3.683779729953587*^9}]
+}, Open  ]]
+},
+WindowSize->{808, 867},
+WindowMargins->{{Automatic, 33}, {Automatic, 0}},
+FrontEndVersion->"11.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (July 28, \
+2016)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 10482, 382, 453, "Input"],
+Cell[11065, 406, 2005, 30, 60, "Message"]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[13107, 441, 210, 6, 48, "Input"],
+Cell[13320, 449, 73, 1, 32, "Output"]
+}, Open  ]]
+}
+]
+*)
+
