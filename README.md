@@ -1,0 +1,2 @@
+# getJudged - HackGT 2016
+By Aaron Vontell and Cooper Pellaton

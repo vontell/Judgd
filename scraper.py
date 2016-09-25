@@ -1,15 +1,21 @@
 from urllib.request import urlopen
 from pymongo import MongoClient
-import numpy
+import numpy as np
 import requests
 import operator
 import logging
 import time
 import pandas as pd
 import tempfile
+import matplotlib.pyplot as plt; plt.rcdefaults()
+import matplotlib.pyplot as plt
+#import tensorflow.contrib.learn as skflow
+#from sklearn import svm, datasets, metrics
 #from keras.models import Sequential
 #from keras.layers import Dense, Activation
-from sklearn import svm, datasets
+import tensorflow as tf
+import tensorflow.contrib.learn as skflow
+from sklearn import svm, datasets, metrics
 
 # Some useful base constants (for URLS and such)
 project_listings = "http://devpost.com/software/search?page="
@@ -232,18 +238,61 @@ def do_some_learning():
             for tag in proj_tags:
                 index = all_tags.index(tag)
                 tag_ind[index] = 1
+                
+        # Attach other features (i.e. tagline word count, keywords in tagline)
+        if project.get("tagline"):
+            tagline_words_count = len(project.get("tagline").split(" "))
+            tag_ind.append(tagline_words_count)
+        else:
+            tagline_words_count = 0
+            tag_ind.append(tagline_words_count)
+            
+        if project.get("likes"):
+            num_likes = project.get("likes")
+            tag_ind.append(num_likes)
+        else:
+            tag_ind.append(0)
+            
+        if project.get("comments"):
+            num_comm = project.get("comments")
+            tag_ind.append(num_comm)
+        else:
+            tag_ind.append(0)
+            
+        if project.get("tagline"):
+            for word in project.get("tagline").split(" "):
+                if word in all_tags:
+                    index = all_tags.index(tag)
+                    tag_ind[index] = 1
             
         X.append(tag_ind)
         Y.append(1 if project.get("winner") else 0)
+        list_x = np.array(X, dtype="int64")
+        list_y = np.array(Y, dtype="int64")
     
+    trainingX, testingX = split_list(list_x)
+    trainingY, testingY = split_list(list_y)
+    #clf = svm.SVC(verbose=True, cache_size=1000)
+    #clf.fit(trainingX, trainingY)
     
     trainingX, testingX = split_list(X)
     trainingY, testingY = split_list(Y)
     clf = svm.SVC(verbose=True, cache_size=30000)
     clf.fit(trainingX, trainingY)
     
-    return clf.score(testingX, testingY)
+    #return clf.score(testingX, testingY)
+    #classifier = skflow.TensorFlowLinearClassifier(n_classes=1)
+    #classifier.fit(trainingX, trainingY)
     
+    #return metrics.accuracy_score(trainingX, classifier.predict(trainingY))
+    classifier = skflow.TensorFlowLinearClassifier(n_classes=2)
+    #classify_save = 
+    classifier.fit(trainingX, trainingY)
+
+    #TF Saver so that session data will persist.
+    #saver = tf.train.Saver(classify_save)
+    #saver.save(classifier,'restore_point') 
+    return metrics.accuracy_score(trainingX, classifier.predict(trainingY))    
     
 def split_list(a_list):
     B = a_list[0:len(a_list)//2]
@@ -262,28 +311,60 @@ def get_naive_score():
         
     return float(lost)/float(total)
 
-# Machine learning stuff
-#def do_some_ml():
-    #model = Sequential()
-    #data_blob = db.devpost.find()
-    #COLUMNS = ["tags", "winner"]
-    #train_file = tempfile.NamedTemporaryFile()
-    #test_file = tempfile.NamedTemporaryFile()
-    #df_train = pd.read_json(data_blob)
-    #df_train["WINNING"] = df_train(["winner"].apply(lambda x : x.get("winner")))
-    #x_batch = db.devpost.find()
-    #y_batch = map(lambda x : x.get("winner"), x_batch)
-    #model.add(Dense(output_dim=64, input_dim=100))
-    #model.add(Activation("relu"))
-    #model.add(Dense(output_dim=10))
-    #model.add(Activation("softmax"))
-    #model.compile(loss='categorical_crossentropy', optimizer='sgd', metrics=['accuracy'])
-    #model.train_on_batch(numpy.asarraay(x_batch), y_batch)
-    #loss_and_metrics = model.evaluate(X_test, Y_test, batch_size=32)
-    #print(x_batch)
+def plot_popular_tags():
+    
+    tags = get_top_tags()
+    tags = remove_languages(tags)[-11:len(tags)]
+    tech = [tag[0] for tag in tags]
+    nums = [tag[1] for tag in tags]
+
+    y_pos = numpy.arange(len(tech))
+    performance = nums
+
+    plt.bar(y_pos, performance, align='center', alpha=0.5)
+    plt.xticks(y_pos, tech)
+    plt.ylabel('# Projects')
+    plt.title('Technologies Used to Win')
+
+    plt.show()
+    
+def plot_worst_tags():
+    
+    tags = get_worst_tech()
+    tags = remove_languages(tags)[-11:len(tags)]
+    tech = [tag[0] for tag in tags]
+    nums = [tag[1] for tag in tags]
+
+    y_pos = numpy.arange(len(tech))
+    performance = nums
+
+    plt.bar(y_pos, performance, align='center', alpha=0.5)
+    plt.xticks(y_pos, tech)
+    plt.ylabel('# Projects')
+    plt.title('Technologies Used to Lose')
+
+    plt.show()
+    
+def plot_num_players_on_winning():
+    
+    members = get_num_members_on_team()
+    
+    num = [member[0] for member in members]
+    amount = [member[1] for member in members]
+
+    y_pos = numpy.arange(len(num))
+    performance = amount
+
+    plt.bar(y_pos, performance, align='center', alpha=0.5)
+    plt.xticks(y_pos, num)
+    plt.ylabel('# Occurences')
+    plt.title('Number of people on winning teams')
+
+    plt.show()
+
     
 #do_some_ml()
-#print(get_top_tech())
+#print(get_top_tags())
 #logging.info(remove_languages(get_worst_tech()))
 #logging.info(get_num_tags_used())
 #get_everything()
@@ -293,6 +374,14 @@ def get_naive_score():
 #print("Common hackers: " + str(get_common_hackers()))
 #print("Top hackers: " + str(get_top_hackers()))
 #print("Tagline length of winning teams: " + str(get_winning_tagline_lengths()))
+
+#score = do_some_learning()
+#naive = get_naive_score()
+#print("Score: " + str(score * 100.0) + "%")
+#print("Naive: " + str(naive * 100.0) + "%")
+#plot_popular_tags()
+#plot_worst_tags()
+#plot_num_players_on_winning()
 
 score = do_some_learning()
 naive = get_naive_score()
