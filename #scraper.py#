@@ -10,7 +10,7 @@ import requests
 
 import matplotlib.pyplot as plt
 import pandas as pd
-from flask import Flask, jsonify
+from flask import Flask
 from pymongo import MongoClient
 #import tensorflow.contrib.learn as skflow
 #from sklearn import svm, datasets, metrics
@@ -242,17 +242,6 @@ def get_winning_tagline_lengths():
                 all_tagline_lengths[len(tagline)] = 1
     return sorted(all_tagline_lengths.items(), key=operator.itemgetter(1))
 
-def get_all_tags():
-    all_tags = []
-    devpost_projs = db.devpost.find()
-    for project in devpost_projs:
-        tags = project.get("tags")
-        if tags:
-            for tag in tags:
-                if tag not in all_tags:
-                    all_tags.append(tag)
-    return all_tags
-
 
 def do_some_learning():
 
@@ -469,13 +458,13 @@ try:
 except FileNotFoundError:
     pass
 
-@app.route("/tags")
-def give_em_something():
-    return (jsonify(get_all_tags()))
-
 @app.route("/")
 def return_info():
     return (frontend / index.html)
+
+@app.route("/")
+if clf:
+    
 
 if __name__ == "__main__":
     if not clf:
