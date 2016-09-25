@@ -1,5 +1,3 @@
-from flask import Flask, url_for, redirect
-app = Flask(__name__)
 import logging
 import operator
 import pickle
@@ -12,7 +10,7 @@ import requests
 
 import matplotlib.pyplot as plt
 import pandas as pd
-from flask import Flask, jsonify
+from flask import Flask, jsonify, redirect, url_for
 from pymongo import MongoClient
 #import tensorflow.contrib.learn as skflow
 #from sklearn import svm, datasets, metrics
@@ -21,6 +19,10 @@ from pymongo import MongoClient
 #import tensorflow as tf
 #import tensorflow.contrib.learn as skflow
 from sklearn import datasets, metrics, svm
+
+app = Flask(__name__)
+
+
 
 app = Flask(__name__)
 plt.rcdefaults()
@@ -243,6 +245,7 @@ def get_winning_tagline_lengths():
             else:
                 all_tagline_lengths[len(tagline)] = 1
     return sorted(all_tagline_lengths.items(), key=operator.itemgetter(1))
+
 
 def get_all_tags():
     all_tags = []
@@ -471,10 +474,12 @@ try:
 except FileNotFoundError:
     pass
 
+
 @app.route("/tags")
 def give_em_something():
     print("Recieved tags request.")
     return (jsonify(get_all_tags()))
+
 
 @app.route("/")
 def return_info():
