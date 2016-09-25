@@ -325,38 +325,7 @@ def do_some_learning():
     trainingX, testingX = split_list(X)
     trainingY, testingY = split_list(Y)
     clf = svm.SVC(verbose=True, cache_size=30000, probability=True)
-    clf.fit(trainingX, trainingY)
-
-    pred_project = {
-        "tags": ["gupshup", "atlantic.net", "outlook", "myscript"],
-        "members": ["vontell", "cooperpellaton", "amissingmember", "theallstar"],
-        "tagline": "This project is a project is a project is a project is a project is a project is a project is a project is a project!",
-    }
-
-    # ASSEMBLE OUR TEST
-    pred_ind = [0] * len(all_tags)
-    pred_proj_tags = pred_project["tags"]
-    if pred_proj_tags:
-        for pred_tag in pred_proj_tags:
-            if pred_tag in all_tags:
-                print("we in")
-                index = all_tags.index(pred_tag)
-                pred_ind[index] = 1
-
-    if pred_project["tagline"]:
-        tagline_words_count = len(pred_project["tagline"])
-        pred_ind.append(tagline_words_count)
-    else:
-        tagline_words_count = 0
-        pred_ind.append(tagline_words_count)
-
-    if(pred_project["members"]):
-        num_mem = len(pred_project["members"])
-        pred_ind.append(num_mem)
-    else:
-        pred_ind.append(0)
-
-    print(clf.predict_proba(pred_ind))
+    clf.fit(X, Y)
 
     # return clf.score(testingX, testingY)
     return clf
