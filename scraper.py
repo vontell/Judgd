@@ -397,8 +397,6 @@ def return_info():
     return (frontend/index.html)
 
 if __name__ == "__main__":
-    app.run()
-
     #do_some_ml()
     #print(get_top_tags())
     #logging.info(remove_languages(get_worst_tech()))
@@ -428,3 +426,6 @@ if __name__ == "__main__":
     logging.info("True: "+ str(get_num_members_on_team(True)))
     logging.info("False: " + str(get_num_members_on_team(False)))
     logging.info("Tagline length: " + str(get_winning_tagline_lengths()))
+
+    # After the server runs, then let Flask run.
+    app.run()
