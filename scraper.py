@@ -453,47 +453,51 @@ def get_top_not_worst():
 # ----------------------------------
 clf = null
 
+with open('clf.pickle', 'rb') as f:  # Python 3: open(..., 'rb')
+    clf = pickle.load(f)
+
 @app.route("/")
 def return_info():
     return (frontend / index.html)
 
 if __name__ == "__main__":
-    # do_some_ml()
-    # print(get_top_tags())
-    # logging.info(remove_languages(get_worst_tech()))
-    # logging.info(get_num_tags_used())
-    # get_everything()
-    # get_members_by_db_from_github()
-    #print("Winning team sizes: " + str(get_num_members_on_team()))
-    #print("Losing team sizes: " + str(get_num_members_on_team(False)))
-    #print("Common hackers: " + str(get_common_hackers()))
-    #print("Top hackers: " + str(get_top_hackers()))
-    #print("Tagline length of winning teams: " + str(get_winning_tagline_lengths()))
+    if not clf:
+        # do_some_ml()
+        # print(get_top_tags())
+        # logging.info(remove_languages(get_worst_tech()))
+        # logging.info(get_num_tags_used())
+        # get_everything()
+        # get_members_by_db_from_github()
+        #print("Winning team sizes: " + str(get_num_members_on_team()))
+        #print("Losing team sizes: " + str(get_num_members_on_team(False)))
+        #print("Common hackers: " + str(get_common_hackers()))
+        #print("Top hackers: " + str(get_top_hackers()))
+        #print("Tagline length of winning teams: " + str(get_winning_tagline_lengths()))
 
-    #score = do_some_learning()
-    #naive = get_naive_score()
-    #print("Score: " + str(score * 100.0) + "%")
-    #print("Naive: " + str(naive * 100.0) + "%")
-    # plot_popular_tags()
-    # plot_worst_tags()
-    # plot_num_players_on_winning()
+        #score = do_some_learning()
+        #naive = get_naive_score()
+        #print("Score: " + str(score * 100.0) + "%")
+        #print("Naive: " + str(naive * 100.0) + "%")
+        # plot_popular_tags()
+        # plot_worst_tags()
+        # plot_num_players_on_winning()
 
-    clf = do_some_learning()
-    # score = clf.score(testingX, testingY)
-    # naive = get_naive_score()
-    # print("Score: " + str(score * 100.0) + "%")
-    # print("Naive: " + str(naive * 100.0) + "%")
-    # logging.info(get_top_not_worst())
-    # logging.info(get_num_tags_used())
-    #logging.info("True: "+ str(get_num_members_on_team(True)))
-    #logging.info("False: " + str(get_num_members_on_team(False)))
-    #logging.info("Tagline length: " + str(get_winning_tagline_lengths()))
+        clf = do_some_learning()
+        # score = clf.score(testingX, testingY)
+        # naive = get_naive_score()
+        # print("Score: " + str(score * 100.0) + "%")
+        # print("Naive: " + str(naive * 100.0) + "%")
+        # logging.info(get_top_not_worst())
+        # logging.info(get_num_tags_used())
+        #logging.info("True: "+ str(get_num_members_on_team(True)))
+        #logging.info("False: " + str(get_num_members_on_team(False)))
+        #logging.info("Tagline length: " + str(get_winning_tagline_lengths()))
 
-    #---------------------------------------------------------------------
-    # Save CLF across instances of our model to reduce run time for later.
-    #---------------------------------------------------------------------
-    with open('clf.pickle', 'wb') as f:
-        pickle.dump([clf], f)
+        #---------------------------------------------------------------------
+        # Save CLF across instances of our model to reduce run time for later.
+        #---------------------------------------------------------------------
+        with open('clf.pickle', 'wb') as f:
+            pickle.dump([clf], f)
 
     # After the server runs, then let Flask run.
     app.run()
