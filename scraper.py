@@ -519,7 +519,7 @@ def give_naive():
     return (jsonify(get_naive_score()))
 
 
-@app.route('/prediction/<blob>', methods=['GET', 'POST'])
+@app.route('/prediction', methods=['GET', 'POST'])
 def give_prediction(blob):
     content = request.get_json(silent=True)
     return jsonify(make_prediction(content))
