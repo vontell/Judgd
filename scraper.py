@@ -371,13 +371,14 @@ def do_some_learning():
 
 
 def make_prediction(blob):
+    pred_project = None
     if blob:
         pred_project = blob
     else:
         pred_project = {
             "tags": ["gupshup", "atlantic.net", "outlook", "myscript"],
             "members": ["vontell", "cooperpellaton", "amissingmember", "theallstar"],
-            "tagline": "This project is a project is a project is a project is a project is a project is a project is a project is a project!",
+            "tagline": "This project is a project is a project is a project is a project is a project is a project is a project is a project!"
         }
 
     all_tags = get_all_tags()
@@ -404,8 +405,8 @@ def make_prediction(blob):
     else:
         pred_ind.append(0)
 
-    print(clf.predict_proba(clf.fit_transform(pred_ind)))
-    return clf.predict_proba(clf.fit_transform(pred_ind))
+    print(clf.predict_proba(pred_ind))
+    return clf.predict_proba(pred_ind)
 
 
 def split_list(a_list):
