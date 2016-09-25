@@ -494,7 +494,7 @@ def give_prediction():
     content = request.json
     print(clf)
     result = {}
-    result.put("loss", make_prediction(content)[0])
+    result["loss"] = make_prediction(content)[0]
     return result
 
 
