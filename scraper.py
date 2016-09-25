@@ -9,7 +9,7 @@ import numpy as np
 import requests
 
 import pandas as pd
-from flask import Flask, jsonify, redirect, url_for, request
+from flask import Flask, jsonify, redirect, url_for, request, Response
 from pymongo import MongoClient
 #import tensorflow.contrib.learn as skflow
 #from sklearn import svm, datasets, metrics
@@ -495,7 +495,7 @@ def give_prediction():
     print(clf)
     result = [0] * 1
     result[0] = make_prediction(content)[0]
-    return jsonify(result)
+    return Response(result, mimetype='text/text')
 
 
 @app.route("/stats")
