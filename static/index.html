@@ -1058,7 +1058,7 @@ var _wpcf7 = {"loaderUrl":"https:\/\/tanvas.co\/wp-content\/plugins\/contact-for
                     console.log(prediction);
                     
                     $http.post("/prediction", prediction).then(function(res) {
-                        $scope.result = "Your project has a [loss:win] chance of " + res.data;
+                        $scope.result = "Your project has a [loss win] chance of " + res.data[1];
                     }, function(err) {
                         $scope.result = "There was an error with the prediction :(";
                     })
