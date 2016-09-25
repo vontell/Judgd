@@ -26,7 +26,7 @@ logging.basicConfig(filename='devpost.log',level=logging.DEBUG)
 
 # The database instance
 client = MongoClient(database)
-db = client.testDB
+db = client.devpost
 
 # Scrapes devpost to scrape everything, including:
 #   project information
@@ -137,7 +137,7 @@ def get_worst_tech():
 # Gets the number of tags that a project uses, as a list
 # of {num_tags_in_projects: num_projects_with_that_many_tags}
 def get_num_tags_used():
-    projects = db.devpost.find()
+    projects = db.devpost.find({"winner": True})
     num_tags = {}
     for project in projects:
         if project.get("tags"):
@@ -286,6 +286,11 @@ def do_some_learning():
     clf = svm.SVC(verbose=True, cache_size=30000)
     clf.fit(trainingX, trainingY)
     
+    # Make a prediction!
+    pred_project = {
+        "tags": ["cardboard", "aframe", "gupshup"]
+    }
+    
     return clf.score(testingX, testingY)
     
     #classifier = skflow.TensorFlowLinearClassifier(n_classes=2)
@@ -363,6 +368,23 @@ def plot_num_players_on_winning():
     plt.title('Number of people on winning teams')
 
     plt.show()
+    
+def get_top_not_worst():
+    
+    worst = get_worst_tech()
+    best = get_top_tags()
+    not_present = []
+    for tag in best:
+        tech = tag[0]
+        for badtag in worst:
+            if badtag[0] == tech:
+                if badtag[1] > tag[1]:
+                    break
+            else:
+                if badtag == worst[-1]:
+                    not_present.append(tag)
+    return not_present
+            
 
     
 #do_some_ml()
@@ -385,7 +407,10 @@ def plot_num_players_on_winning():
 #plot_worst_tags()
 #plot_num_players_on_winning()
 
-score = do_some_learning()
-naive = get_naive_score()
-print("Score: " + str(score * 100.0) + "%")
-print("Naive: " + str(naive * 100.0) + "%")
+#score = do_some_learning()
+#naive = get_naive_score()
+#print("Score: " + str(score * 100.0) + "%")
+#print("Naive: " + str(naive * 100.0) + "%")
+
+print(get_top_not_worst())
+print(get_num_tags_used())
