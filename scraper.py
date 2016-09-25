@@ -276,9 +276,13 @@ def do_some_learning():
     #clf.fit(trainingX, trainingY)
     
     #return clf.score(testingX, testingY)
+    #classifier = skflow.TensorFlowLinearClassifier(n_classes=1)
+    #classifier.fit(trainingX, trainingY)
     
+    #return metrics.accuracy_score(trainingX, classifier.predict(trainingY))
     classifier = skflow.TensorFlowLinearClassifier(n_classes=2)
     classify_save = classifier.fit(trainingX, trainingY)
+
     #TF Saver so that session data will persist.
     saver = tf.train.Saver(classify_save)
     saver.save(classifier,'restore_point') 
@@ -357,7 +361,7 @@ def plot_num_players_on_winning():
 #print(get_top_tags())
 #logging.info(remove_languages(get_worst_tech()))
 #logging.info(get_num_tags_used())
-get_everything()
+#get_everything()
 #get_members_by_db_from_github()
 #print("Winning team sizes: " + str(get_num_members_on_team()))
 #print("Losing team sizes: " + str(get_num_members_on_team(False)))
@@ -372,6 +376,7 @@ get_everything()
 #plot_popular_tags()
 #plot_worst_tags()
 #plot_num_players_on_winning()
+
 score = do_some_learning()
 naive = get_naive_score()
 print("Score: " + str(score * 100.0) + "%")
