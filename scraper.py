@@ -520,8 +520,8 @@ def give_naive():
 
 
 @app.route('/prediction', methods=['GET', 'POST'])
-def give_prediction(blob):
-    content = request.get_json(silent=True)
+def give_prediction():
+    content = request.json()
     return jsonify(make_prediction(content))
 
 
