@@ -471,6 +471,7 @@ except FileNotFoundError:
 
 @app.route("/tags")
 def give_em_something():
+    print("Recieved tags request.")
     return (jsonify(get_all_tags()))
 
 @app.route("/")
