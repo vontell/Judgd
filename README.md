@@ -12,6 +12,12 @@ So what does this project do? This project starts by scraping every single hacka
 
 We begin by grabbing all of this data, then building a best-fit linear model to it, and then allow you to make some predictions upon which you can test their viability.
 
+Here is a quick visual representation that we put together to show the data set:
+![](assets/load.png)
+![](assets/page2.png)
+![](assets/page3.png)
+![](assets/prediction.png)
+
 ## Getting Started
 Clone this repository and then begin by running `pip install -r requirements.txt`. This will recurisvely install all of the needed dependecies for the project excluding [TensorFlow](https://www.tensorflow.org/). If you didn't already realize you need to have a system capable of running TensorFlow and or SciKit Learn so head over [here](https://www.tensorflow.org/versions/r0.10/get_started/os_setup.html#download-and-setup) to get everything installed. You also need to have MongoDB installed and running.
 
@@ -39,5 +45,21 @@ This will now let the model run on all of your data and deliver you back some in
 **What does this mean?**
 
 Well, it tells us about what wins and what doesn't. At large we know now statistics about what it takes to win a hackathon, so lets try to come up with a winning project.
+
+## Routes Explained
+We have the following routes available:
+
+**GET**
+
+1. localhost/stats
+2. localhost/naive
+3. localhost/tags
+
+**POST**
+
+1. localhost/prediction
+
+## Tips
+Our pickle file, `clf.pickle` is the `clf` (otherwise known as the trained neural net) that was derived from 12,000 Devpost projects. If you run the `scraper.py` first without doing a `do_some_learning()` call first, it will be run with our trained data. If you don't have a beefy instance to try and train this set but you want to start to try and fit predictions than this would be the right option for you to choose.
 
 
