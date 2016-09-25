@@ -404,8 +404,8 @@ def make_prediction(blob):
     else:
         pred_ind.append(0)
 
-    print(clf.predict_proba(pred_ind))
-    return clf.predict_proba(pred_ind)
+    print(clf.predict_proba(clf.fit_transform(pred_ind)))
+    return clf.predict_proba(clf.fit_transform(pred_ind))
 
 
 def split_list(a_list):
