@@ -13,8 +13,8 @@ import matplotlib.pyplot as plt
 #from sklearn import svm, datasets, metrics
 #from keras.models import Sequential
 #from keras.layers import Dense, Activation
-import tensorflow as tf
-import tensorflow.contrib.learn as skflow
+#import tensorflow as tf
+#import tensorflow.contrib.learn as skflow
 from sklearn import svm, datasets, metrics
 
 # Some useful base constants (for URLS and such)
@@ -267,8 +267,8 @@ def do_some_learning():
             
         X.append(tag_ind)
         Y.append(1 if project.get("winner") else 0)
-        list_x = np.array(X, dtype="int64")
-        list_y = np.array(Y, dtype="int64")
+        list_x = X #np.array(X, dtype="int64")
+        list_y = Y #np.array(Y, dtype="int64")
     
     trainingX, testingX = split_list(list_x)
     trainingY, testingY = split_list(list_y)
@@ -280,19 +280,15 @@ def do_some_learning():
     clf = svm.SVC(verbose=True, cache_size=30000)
     clf.fit(trainingX, trainingY)
     
-    #return clf.score(testingX, testingY)
-    #classifier = skflow.TensorFlowLinearClassifier(n_classes=1)
-    #classifier.fit(trainingX, trainingY)
+    return clf.score(testingX, testingY)
     
-    #return metrics.accuracy_score(trainingX, classifier.predict(trainingY))
-    classifier = skflow.TensorFlowLinearClassifier(n_classes=2)
-    #classify_save = 
-    classifier.fit(trainingX, trainingY)
+    #classifier = skflow.TensorFlowLinearClassifier(n_classes=2)
+    #classifier.fit(trainingX, trainingY)
 
     #TF Saver so that session data will persist.
     #saver = tf.train.Saver(classify_save)
     #saver.save(classifier,'restore_point') 
-    return metrics.accuracy_score(trainingX, classifier.predict(trainingY))    
+    #return metrics.accuracy_score(trainingX, classifier.predict(trainingY))    
     
 def split_list(a_list):
     B = a_list[0:len(a_list)//2]
