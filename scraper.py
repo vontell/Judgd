@@ -8,7 +8,6 @@ from urllib.request import urlopen
 import numpy as np
 import requests
 
-import matplotlib.pyplot as plt
 import pandas as pd
 from flask import Flask, jsonify, redirect, url_for
 from pymongo import MongoClient
@@ -22,10 +21,7 @@ from sklearn import datasets, metrics, svm
 
 app = Flask(__name__)
 
-
-
 app = Flask(__name__)
-plt.rcdefaults()
 
 # Some useful base constants (for URLS and such)
 project_listings = "http://devpost.com/software/search?page="
