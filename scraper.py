@@ -574,4 +574,4 @@ if __name__ == "__main__":
             pickle.dump([clf], f)
 
     # After the server runs, then let Flask run.
-    app.run()
+    app.run(host='0.0.0.0', port=80)
