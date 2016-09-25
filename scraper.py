@@ -489,7 +489,7 @@ def give_naive():
     return (jsonify(get_naive_score()))
 
 
-@app.route('/prediction', methods=['GET', 'POST'])
+@app.route('/prediction', methods=['POST'])
 def give_prediction():
     content = request.json
     print(clf)
