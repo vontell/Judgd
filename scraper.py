@@ -28,7 +28,7 @@ logging.basicConfig(filename='devpost.log',level=logging.DEBUG)
 
 # The database instance
 client = MongoClient(database)
-db = client.devpost
+db = client.testDB
 
 # Scrapes devpost to scrape everything, including:
 #   project information
@@ -209,7 +209,7 @@ def get_winning_tagline_lengths():
     devpost_projs = db.devpost.find({"winner":True})
     for project in devpost_projs:
         tagline = project.get("tagline")
-        if tagline: 
+        if tagline:
             if len(tagline) in all_tagline_lengths:
                 all_tagline_lengths[len(tagline)] = all_tagline_lengths[len(tagline)] + 1
             else:
@@ -244,12 +244,13 @@ def do_some_learning():
                 
         # Attach other features (i.e. tagline word count, keywords in tagline)
         if project.get("tagline"):
-            tagline_words_count = len(project.get("tagline").split(" "))
+            tagline_words_count = len(project.get("tagline"))
             tag_ind.append(tagline_words_count)
         else:
             tagline_words_count = 0
             tag_ind.append(tagline_words_count)
-            
+        
+        '''
         if project.get("likes"):
             num_likes = project.get("likes")
             tag_ind.append(num_likes)
@@ -261,10 +262,11 @@ def do_some_learning():
             tag_ind.append(num_comm)
         else:
             tag_ind.append(0)
-            
+        '''
+        
         if(project.get("members")):
             num_mem = len(project.get("members"))
-            tag_ind.append(num_men)
+            tag_ind.append(num_mem)
         else:
             tag_ind.append(0)
             
@@ -276,23 +278,47 @@ def do_some_learning():
             
         X.append(tag_ind)
         Y.append(1 if project.get("winner") else 0)
-        list_x = X #np.array(X, dtype="int64")
-        list_y = Y #np.array(Y, dtype="int64")
-    
-    trainingX, testingX = split_list(list_x)
-    trainingY, testingY = split_list(list_y)
+        
     #clf = svm.SVC(verbose=True, cache_size=1000)
     #clf.fit(trainingX, trainingY)
     
     trainingX, testingX = split_list(X)
     trainingY, testingY = split_list(Y)
-    clf = svm.SVC(verbose=True, cache_size=30000)
+    clf = svm.SVC(verbose=True, cache_size=30000, probability=True)
     clf.fit(trainingX, trainingY)
     
     # Make a prediction!
     pred_project = {
-        "tags": ["cardboard", "aframe", "gupshup"]
+        "tags": ["gupshup", "atlantic.net", "outlook", "myscript"],
+        "members": ["vontell", "cooperpellaton", "amissingmember", "theallstar"],
+        "tagline": "This project is a project is a project is a project is a project is a project is a project is a project is a project!",
     }
+    
+    # ASSEMBLE OUR TEST
+    pred_ind = [0] * len(all_tags)
+    pred_proj_tags = pred_project["tags"]
+    if pred_proj_tags:
+        for pred_tag in pred_proj_tags:
+            if pred_tag in all_tags:
+                print("we in")
+                index = all_tags.index(pred_tag)
+                pred_ind[index] = 1
+                
+    if pred_project["tagline"]:
+        tagline_words_count = len(pred_project["tagline"])
+        pred_ind.append(tagline_words_count)
+    else:
+        tagline_words_count = 0
+        pred_ind.append(tagline_words_count)
+            
+    if(pred_project["members"]):
+        num_mem = len(pred_project["members"])
+        pred_ind.append(num_mem)
+    else:
+        pred_ind.append(0)
+    
+    
+    print(clf.predict_proba(pred_ind))
     
     return clf.score(testingX, testingY)
     
@@ -417,15 +443,15 @@ if __name__ == "__main__":
     #plot_worst_tags()
     #plot_num_players_on_winning()
 
-    #score = do_some_learning()
-    #naive = get_naive_score()
-    #print("Score: " + str(score * 100.0) + "%")
-    #print("Naive: " + str(naive * 100.0) + "%")
-    logging.info(get_top_not_worst())
-    logging.info(get_num_tags_used())
-    logging.info("True: "+ str(get_num_members_on_team(True)))
-    logging.info("False: " + str(get_num_members_on_team(False)))
-    logging.info("Tagline length: " + str(get_winning_tagline_lengths()))
+    score = do_some_learning()
+    naive = get_naive_score()
+    print("Score: " + str(score * 100.0) + "%")
+    print("Naive: " + str(naive * 100.0) + "%")
+    #logging.info(get_top_not_worst())
+    #logging.info(get_num_tags_used())
+    #logging.info("True: "+ str(get_num_members_on_team(True)))
+    #logging.info("False: " + str(get_num_members_on_team(False)))
+    #logging.info("Tagline length: " + str(get_winning_tagline_lengths()))
 
     # After the server runs, then let Flask run.
     app.run()
