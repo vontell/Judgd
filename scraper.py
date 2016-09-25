@@ -9,7 +9,7 @@ import numpy as np
 import requests
 
 import pandas as pd
-from flask import Flask, jsonify, redirect, url_for
+from flask import Flask, jsonify, redirect, url_for, request
 from pymongo import MongoClient
 #import tensorflow.contrib.learn as skflow
 #from sklearn import svm, datasets, metrics
