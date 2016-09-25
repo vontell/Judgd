@@ -3,13 +3,14 @@ import operator
 import pickle
 import tempfile
 import time
+import json
 from urllib.request import urlopen
 
 import numpy as np
 import requests
 
 import pandas as pd
-from flask import Flask, jsonify, redirect, url_for
+from flask import Flask, jsonify, redirect, url_for, request, Response
 from pymongo import MongoClient
 #import tensorflow.contrib.learn as skflow
 #from sklearn import svm, datasets, metrics
@@ -325,38 +326,7 @@ def do_some_learning():
     trainingX, testingX = split_list(X)
     trainingY, testingY = split_list(Y)
     clf = svm.SVC(verbose=True, cache_size=30000, probability=True)
-    clf.fit(trainingX, trainingY)
-
-    pred_project = {
-        "tags": ["gupshup", "atlantic.net", "outlook", "myscript"],
-        "members": ["vontell", "cooperpellaton", "amissingmember", "theallstar"],
-        "tagline": "This project is a project is a project is a project is a project is a project is a project is a project is a project!",
-    }
-
-    # ASSEMBLE OUR TEST
-    pred_ind = [0] * len(all_tags)
-    pred_proj_tags = pred_project["tags"]
-    if pred_proj_tags:
-        for pred_tag in pred_proj_tags:
-            if pred_tag in all_tags:
-                print("we in")
-                index = all_tags.index(pred_tag)
-                pred_ind[index] = 1
-
-    if pred_project["tagline"]:
-        tagline_words_count = len(pred_project["tagline"])
-        pred_ind.append(tagline_words_count)
-    else:
-        tagline_words_count = 0
-        pred_ind.append(tagline_words_count)
-
-    if(pred_project["members"]):
-        num_mem = len(pred_project["members"])
-        pred_ind.append(num_mem)
-    else:
-        pred_ind.append(0)
-
-    print(clf.predict_proba(pred_ind))
+    clf.fit(X, Y)
 
     # return clf.score(testingX, testingY)
     return clf
@@ -371,13 +341,14 @@ def do_some_learning():
 
 
 def make_prediction(blob):
+    pred_project = None
     if blob:
         pred_project = blob
     else:
         pred_project = {
             "tags": ["gupshup", "atlantic.net", "outlook", "myscript"],
             "members": ["vontell", "cooperpellaton", "amissingmember", "theallstar"],
-            "tagline": "This project is a project is a project is a project is a project is a project is a project is a project is a project!",
+            "tagline": "This project is a project is a project is a project is a project is a project is a project is a project is a project!"
         }
 
     all_tags = get_all_tags()
@@ -503,7 +474,7 @@ def get_top_not_worst():
 clf = None
 try:
     with open('clf.pickle', 'rb') as f:  # Python 3: open(..., 'rb')
-        clf = pickle.load(f)
+        clf = pickle.load(f)[0]
 except FileNotFoundError:
     pass
 
@@ -519,10 +490,13 @@ def give_naive():
     return (jsonify(get_naive_score()))
 
 
-@app.route('/prediction/<blob>', methods=['GET', 'POST'])
-def give_prediction(blob):
-    content = request.get_json(silent=True)
-    return jsonify(make_prediction(content))
+@app.route('/prediction', methods=['POST'])
+def give_prediction():
+    content = request.json
+    print(clf)
+    result = [0] * 1
+    result[0] = make_prediction(content)[0]
+    return Response(str(result),  mimetype='application/text')
 
 
 @app.route("/stats")
@@ -574,4 +548,4 @@ if __name__ == "__main__":
             pickle.dump([clf], f)
 
     # After the server runs, then let Flask run.
-    app.run()
+    app.run(host='0.0.0.0', port=80)
